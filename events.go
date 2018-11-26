@@ -127,6 +127,26 @@ func NewUserLogoutEvent(userId string) *UserLogoutEvent {
 	}
 }
 
+type UserCallDeleteHimselfEvent struct {
+	UserId          string `json:"userId"`
+	UserWasReported bool   `json:"userWasReported"`
+	UnixTime        int64  `json:"unixTime"`
+	EventType       string `json:"eventType"`
+}
+
+func (event UserCallDeleteHimselfEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserCallDeleteHimselfEvent(userId string, wasUserReported bool) *UserCallDeleteHimselfEvent {
+	return &UserCallDeleteHimselfEvent{
+		UserId:          userId,
+		UserWasReported: wasUserReported,
+		UnixTime:        time.Now().Unix(),
+		EventType:       "AUTH_USER_CALL_DELETE_HIMSELF",
+	}
+}
+
 //it's not analytics event
 type UserOnlineEvent struct {
 	UserId    string `json:"userId"`
@@ -245,6 +265,7 @@ func NewRemoveTooLargeObjectEvent(userId, bucket, key string, size int64) *Remov
 //Internal events in kinesis stream
 const (
 	LikePhotoInternalEvent = "INTERNAL_PHOTO_LIKE_EVENT"
+	UserDeleteHimselfEvent = "AUTH_USER_CALL_DELETE_HIMSELF"
 )
 
 type BaseInternalEvent struct {

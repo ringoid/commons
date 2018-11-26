@@ -42,6 +42,7 @@ const (
 	IOSDeviceModelColumnName      = "ios_device"
 	IOsVersionColumnName          = "ios_version"
 	CurrentActiveDeviceIsAndroid  = "current_device_is_android"
+	UserStatusColumnName          = "user_status"
 
 	UpdatedTimeColumnName    = "updated_at"
 	LastOnlineTimeColumnName = "last_online_time"
@@ -93,6 +94,9 @@ const (
 	ViewActionType   = "VIEW"
 	BlockActionType  = "BLOCK"
 	UnlikeActionType = "UNLIKE"
+
+	UserActiveStatus      = "ACTIVE"
+	UserWasReportedStatus = "REPORTED"
 )
 
 var MinimalAndroidBuildNum = 76
