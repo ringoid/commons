@@ -109,24 +109,6 @@ func NewUserSettingsUpdatedEvent(userId string, safeDistanceInMeter int, pushMes
 	}
 }
 
-type UserLogoutEvent struct {
-	UserId    string `json:"userId"`
-	UnixTime  int64  `json:"unixTime"`
-	EventType string `json:"eventType"`
-}
-
-func (event UserLogoutEvent) String() string {
-	return fmt.Sprintf("%#v", event)
-}
-
-func NewUserLogoutEvent(userId string) *UserLogoutEvent {
-	return &UserLogoutEvent{
-		UserId:    userId,
-		UnixTime:  time.Now().Unix(),
-		EventType: "AUTH_USER_LOGOUT",
-	}
-}
-
 type UserCallDeleteHimselfEvent struct {
 	UserId          string `json:"userId"`
 	UserWasReported bool   `json:"userWasReported"`
@@ -433,5 +415,25 @@ func NewProfileWasReturnToNewFacesEvent(userId string, timeToDeleteViewRel int64
 		SeenProfilesNum:     len(targetIds),
 		UnixTime:            time.Now().Unix(),
 		EventType:           "FEEDS_NEW_FACES_SEEN_PROFILES",
+	}
+}
+
+type ProfileWasReturnToLMMEvent struct {
+	UserId        string   `json:"userId"`
+	TargetUserIds []string `json:"targetUserIds"`
+	UnixTime      int64    `json:"unixTime"`
+	EventType     string   `json:"eventType"`
+}
+
+func (event ProfileWasReturnToLMMEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewProfileWasReturnToLMMEvent(userId string, targetIds []string) ProfileWasReturnToLMMEvent {
+	return ProfileWasReturnToLMMEvent{
+		UserId:        userId,
+		TargetUserIds: targetIds,
+		UnixTime:      time.Now().Unix(),
+		EventType:     "FEEDS_LLM_PROFILES",
 	}
 }
