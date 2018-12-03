@@ -46,9 +46,9 @@ func DecodeToken(token, secretWord string, anlogger *Logger, lc *lambdacontext.L
 	}
 }
 
-//return is session valid, user status, ok, error string
+//return is session valid, user status, user report status, ok, error string
 func IsSessionValid(userId, sessionToken, userProfileTableName string, awsDbClient *dynamodb.DynamoDB,
-	anlogger *Logger, lc *lambdacontext.LambdaContext) (bool, string, bool, string) {
+	anlogger *Logger, lc *lambdacontext.LambdaContext) (bool, string, string, bool, string) {
 
 	anlogger.Debugf(lc, "common_action.go : check that sessionToken [%s] is valid for userId [%s]", sessionToken, userId)
 	input := &dynamodb.GetItemInput{
@@ -64,23 +64,26 @@ func IsSessionValid(userId, sessionToken, userProfileTableName string, awsDbClie
 	result, err := awsDbClient.GetItem(input)
 	if err != nil {
 		anlogger.Errorf(lc, "common_action.go : error getting userInfo for userId [%s] : %v", userId, err)
-		return false, "", false, InternalServerError
+		return false, "", "", false, InternalServerError
 	}
 
 	if len(result.Item) == 0 {
 		anlogger.Warnf(lc, "common_action.go : there is no user with such userId [%s], sessionToken [%s]", userId, sessionToken)
-		return false, "", true, ""
+		return false, "", "", true, ""
 	}
 
 	lastSessionToken := *result.Item[SessionTokenColumnName].S
 	userStatus := *result.Item[UserStatusColumnName].S
+	userReportStatus := *result.Item[UserReportStatusColumnName].S
 	if sessionToken != lastSessionToken {
-		anlogger.Warnf(lc, "common_action.go : sessionToken [%s] expired for userId [%s], user status [%s]", sessionToken, userId, userStatus)
-		return false, userStatus, true, ""
+		anlogger.Warnf(lc, "common_action.go : sessionToken [%s] expired for userId [%s], user status [%s], user report status [%s]",
+			sessionToken, userId, userStatus, userReportStatus)
+		return false, userStatus, userReportStatus, true, ""
 	}
 
-	anlogger.Debugf(lc, "common_action.go : session token is valid for userId [%s] and user status [%s]", userId, userStatus)
-	return true, userStatus, true, ""
+	anlogger.Debugf(lc, "common_action.go : session token is valid for userId [%s] and user status [%s], user report status [%s]",
+		userId, userStatus, userReportStatus)
+	return true, userStatus, userReportStatus, true, ""
 }
 
 func SendAnalyticEvent(event interface{}, userId, deliveryStreamName string, awsDeliveryStreamClient *firehose.Firehose,
@@ -261,9 +264,9 @@ func UpdateLastOnlineTimeAndBuildNum(userId, userProfileTableName string, buildN
 	return true, ""
 }
 
-//return userId, user status, ok and error string
+//return userId, user status, user report status, ok and error string
 func Login(appVersion int, isItAndroid bool, token, secretWord, userProfileTable, commonStreamName string, awsDbClient *dynamodb.DynamoDB, awsKinesisClient *kinesis.Kinesis,
-	anlogger *Logger, lc *lambdacontext.LambdaContext) (string, string, bool, string) {
+	anlogger *Logger, lc *lambdacontext.LambdaContext) (string, string, string, bool, string) {
 
 	anlogger.Debugf(lc, "common_action.go : login for token [%s] with app version [%d] and isItAndroid [%v]", token, appVersion, isItAndroid)
 
@@ -271,43 +274,44 @@ func Login(appVersion int, isItAndroid bool, token, secretWord, userProfileTable
 	case true:
 		if appVersion < MinimalAndroidBuildNum {
 			anlogger.Infof(lc, "common_action.go : too old Android version [%d] when min version is [%d]", appVersion, MinimalAndroidBuildNum)
-			return "", "", false, TooOldAppVersionClientError
+			return "", "", "", false, TooOldAppVersionClientError
 		}
 	default:
 		if appVersion < MinimaliOSBuildNum {
 			anlogger.Infof(lc, "common_action.go : too old iOS version [%d] when min version is [%d]", appVersion, MinimaliOSBuildNum)
-			return "", "", false, TooOldAppVersionClientError
+			return "", "", "", false, TooOldAppVersionClientError
 		}
 	}
 
 	userId, sessionToken, ok, errStr := DecodeToken(token, secretWord, anlogger, lc)
 	if !ok {
-		return "", "", ok, errStr
+		return "", "", "", ok, errStr
 	}
 
-	valid, userStatus, ok, errStr := IsSessionValid(userId, sessionToken, userProfileTable, awsDbClient, anlogger, lc)
+	valid, userStatus, userReportStatus, ok, errStr := IsSessionValid(userId, sessionToken, userProfileTable, awsDbClient, anlogger, lc)
 	if !ok {
-		return "", userStatus, ok, errStr
+		return "", userStatus, userReportStatus, ok, errStr
 	}
 
-	if !valid {
-		return "", userStatus, false, InvalidAccessTokenClientError
+	if !valid || userStatus != UserActiveStatus {
+		return "", userStatus, userReportStatus, false, InvalidAccessTokenClientError
 	}
 
 	ok, errStr = UpdateLastOnlineTimeAndBuildNum(userId, userProfileTable, appVersion, isItAndroid, awsDbClient, anlogger, lc)
 	if !ok {
-		return "", userStatus, ok, errStr
+		return "", userStatus, userReportStatus, ok, errStr
 	}
 
 	event := NewUserOnlineEvent(userId)
 	partitionKey := userId
 	ok, errStr = SendCommonEvent(event, userId, commonStreamName, partitionKey, awsKinesisClient, anlogger, lc)
 	if !ok {
-		return "", userStatus, ok, errStr
+		return "", userStatus, userReportStatus, ok, errStr
 	}
 
-	anlogger.Debugf(lc, "common_action.go : successfully login for token [%s] with app version [%d] and user status [%s]", token, appVersion, userStatus)
-	return userId, userStatus, true, ""
+	anlogger.Debugf(lc, "common_action.go : successfully login for token [%s] with app version [%d], user status [%s], user report status [%s]",
+		token, appVersion, userStatus, userReportStatus)
+	return userId, userStatus, userReportStatus, true, ""
 }
 
 //return ok and error string

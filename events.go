@@ -110,22 +110,22 @@ func NewUserSettingsUpdatedEvent(userId string, safeDistanceInMeter int, pushMes
 }
 
 type UserCallDeleteHimselfEvent struct {
-	UserId          string `json:"userId"`
-	UserWasReported bool   `json:"userWasReported"`
-	UnixTime        int64  `json:"unixTime"`
-	EventType       string `json:"eventType"`
+	UserId           string `json:"userId"`
+	UserReportStatus string `json:"userReportStatus"`
+	UnixTime         int64  `json:"unixTime"`
+	EventType        string `json:"eventType"`
 }
 
 func (event UserCallDeleteHimselfEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserCallDeleteHimselfEvent(userId string, wasUserReported bool) *UserCallDeleteHimselfEvent {
+func NewUserCallDeleteHimselfEvent(userId string, userReportStatus string) *UserCallDeleteHimselfEvent {
 	return &UserCallDeleteHimselfEvent{
-		UserId:          userId,
-		UserWasReported: wasUserReported,
-		UnixTime:        time.Now().Unix(),
-		EventType:       "AUTH_USER_CALL_DELETE_HIMSELF",
+		UserId:           userId,
+		UserReportStatus: userReportStatus,
+		UnixTime:         time.Now().Unix(),
+		EventType:        "AUTH_USER_CALL_DELETE_HIMSELF",
 	}
 }
 
