@@ -437,7 +437,7 @@ func CallVerifyAccessToken(buildNum int, isItAndroid bool, accessToken, function
 	}
 
 	anlogger.Debugf(lc, "common_action.go : successfully validate accessToken, userId [%s]", response.UserId)
-	return response.UserId, true, response.IsUserReported, ""
+	return response.UserId, true, response.UserTakePartInReport, ""
 }
 
 //return ok and error string

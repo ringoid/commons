@@ -32,9 +32,8 @@ func (req InternalGetUserIdReq) String() string {
 
 type InternalGetUserIdResp struct {
 	BaseResponse
-	UserId                 string `json:"userId"`
-	IsUserReported         bool   `json:"isUserReported"`
-	WasUserReportInitiator bool   `json:"wasUserReportInitiator"`
+	UserId               string `json:"userId"`
+	UserTakePartInReport bool   `json:"userTakePartInReport"`
 }
 
 func (resp InternalGetUserIdResp) String() string {

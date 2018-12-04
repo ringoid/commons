@@ -99,9 +99,8 @@ const (
 	UserActiveStatus = "ACTIVE"
 	UserHiddenStatus = "HIDDEN"
 
-	UserCleanReportStatus        = "CLEAN"
-	UserWasReportedStatus        = "REPORTED"
-	UserWasReportInitiatorStatus = "REPORT_INITIATOR"
+	UserCleanReportStatus = "CLEAN"
+	UserTakePartInReport  = "TAKE_PART_IN_REPORT"
 )
 
 var MinimalAndroidBuildNum = 76

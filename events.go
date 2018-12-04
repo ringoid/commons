@@ -125,7 +125,7 @@ func NewUserCallDeleteHimselfEvent(userId string, userReportStatus string) *User
 		UserId:           userId,
 		UserReportStatus: userReportStatus,
 		UnixTime:         time.Now().Unix(),
-		EventType:        "AUTH_USER_CALL_DELETE_HIMSELF",
+		EventType:        UserDeleteHimselfEvent,
 	}
 }
 
@@ -248,6 +248,7 @@ func NewRemoveTooLargeObjectEvent(userId, bucket, key string, size int64) *Remov
 const (
 	LikePhotoInternalEvent = "INTERNAL_PHOTO_LIKE_EVENT"
 	UserDeleteHimselfEvent = "AUTH_USER_CALL_DELETE_HIMSELF"
+	UserBlockEvent         = "ACTION_USER_BLOCK_OTHER"
 )
 
 type BaseInternalEvent struct {
@@ -339,6 +340,8 @@ func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source 
 type UserBlockOtherEvent struct {
 	UserId                string `json:"userId"`
 	TargetUserId          string `json:"targetUserId"`
+	TargetPhotoId         string `json:"targetPhotoId"`
+	BlockReasonNum        int    `json:"blockReasonNum"`
 	BlockedAt             int    `json:"blockedAt"`
 	Source                string `json:"source"`
 	UnixTime              int64  `json:"unixTime"`
@@ -350,14 +353,16 @@ func (event UserBlockOtherEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserBlockOtherEvent(userId, targetUserId, source string, blockedAt int, serviceName string) *UserBlockOtherEvent {
+func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, source string, blockedAt, blockReasonNum int, serviceName string) *UserBlockOtherEvent {
 	return &UserBlockOtherEvent{
 		UserId:                userId,
 		TargetUserId:          targetUserId,
+		TargetPhotoId:         targetPhotoId,
 		BlockedAt:             blockedAt,
+		BlockReasonNum:        blockReasonNum,
 		Source:                source,
 		UnixTime:              time.Now().Unix(),
-		EventType:             "ACTION_USER_BLOCK_OTHER",
+		EventType:             UserBlockEvent,
 		InternalServiceSource: serviceName,
 	}
 }
