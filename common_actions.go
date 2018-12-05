@@ -393,7 +393,7 @@ func ParseAppVersionFromHeaders(headers map[string]string, anlogger *Logger, lc 
 	}
 }
 
-//return userId, ok, was user reported, error string
+//return userId, ok, user take part in report, error string
 func CallVerifyAccessToken(buildNum int, isItAndroid bool, accessToken, functionName string, clientLambda *lambda.Lambda, anlogger *Logger, lc *lambdacontext.LambdaContext) (string, bool, bool, string) {
 	req := InternalGetUserIdReq{
 		AccessToken: accessToken,

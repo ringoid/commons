@@ -201,22 +201,24 @@ func NewUserUploadedPhotoEvent(userId, bucket, key, photoId, photoType string, s
 }
 
 type UserDeletePhotoEvent struct {
-	UserId    string `json:"userId"`
-	PhotoId   string `json:"photoId"`
-	UnixTime  int64  `json:"unixTime"`
-	EventType string `json:"eventType"`
+	UserId               string `json:"userId"`
+	PhotoId              string `json:"photoId"`
+	UserTakePartInReport bool   `json:"userTakePartInReport"`
+	UnixTime             int64  `json:"unixTime"`
+	EventType            string `json:"eventType"`
 }
 
 func (event UserDeletePhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserDeletePhotoEvent(userId, photoId string) *UserDeletePhotoEvent {
+func NewUserDeletePhotoEvent(userId, photoId string, userTakePartInReport bool) *UserDeletePhotoEvent {
 	return &UserDeletePhotoEvent{
-		UserId:    userId,
-		PhotoId:   photoId,
-		UnixTime:  time.Now().Unix(),
-		EventType: "IMAGE_USER_DELETE_PHOTO",
+		UserId:               userId,
+		PhotoId:              photoId,
+		UserTakePartInReport: userTakePartInReport,
+		UnixTime:             time.Now().Unix(),
+		EventType:            "IMAGE_USER_DELETE_PHOTO",
 	}
 }
 
@@ -341,6 +343,7 @@ type UserBlockOtherEvent struct {
 	UserId                string `json:"userId"`
 	TargetUserId          string `json:"targetUserId"`
 	TargetPhotoId         string `json:"targetPhotoId"`
+	OriginPhotoId         string `json:"originPhotoId"`
 	BlockReasonNum        int    `json:"blockReasonNum"`
 	BlockedAt             int    `json:"blockedAt"`
 	Source                string `json:"source"`
@@ -353,11 +356,12 @@ func (event UserBlockOtherEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, source string, blockedAt, blockReasonNum int, serviceName string) *UserBlockOtherEvent {
+func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, originPhotoId, source string, blockedAt, blockReasonNum int, serviceName string) *UserBlockOtherEvent {
 	return &UserBlockOtherEvent{
 		UserId:                userId,
 		TargetUserId:          targetUserId,
 		TargetPhotoId:         targetPhotoId,
+		OriginPhotoId:         originPhotoId,
 		BlockedAt:             blockedAt,
 		BlockReasonNum:        blockReasonNum,
 		Source:                source,
