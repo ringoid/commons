@@ -407,7 +407,7 @@ type ProfileWasReturnToNewFacesEvent struct {
 	UserId              string   `json:"userId"`
 	TargetUserIds       []string `json:"targetUserIds"`
 	TimeToDeleteViewRel int64    `json:"timeToDelete"`
-	SeenProfilesNum     int      `json:"seenProfilesNum"`
+	NewFaceProfilesNum  int      `json:"newFaceProfilesNum"`
 	UnixTime            int64    `json:"unixTime"`
 	EventType           string   `json:"eventType"`
 }
@@ -421,28 +421,32 @@ func NewProfileWasReturnToNewFacesEvent(userId string, timeToDeleteViewRel int64
 		UserId:              userId,
 		TargetUserIds:       targetIds,
 		TimeToDeleteViewRel: timeToDeleteViewRel,
-		SeenProfilesNum:     len(targetIds),
+		NewFaceProfilesNum:  len(targetIds),
 		UnixTime:            time.Now().Unix(),
 		EventType:           "FEEDS_NEW_FACES_SEEN_PROFILES",
 	}
 }
 
 type ProfileWasReturnToLMMEvent struct {
-	UserId        string   `json:"userId"`
-	TargetUserIds []string `json:"targetUserIds"`
-	UnixTime      int64    `json:"unixTime"`
-	EventType     string   `json:"eventType"`
+	UserId             string `json:"userId"`
+	LikeYouProfilesNum int    `json:"likeYouProfilesNum"`
+	MatchProfilesNum   int    `json:"matchProfilesNum"`
+	MessageProfilesNum int    `json:"messageProfilesNum"`
+	UnixTime           int64  `json:"unixTime"`
+	EventType          string `json:"eventType"`
 }
 
 func (event ProfileWasReturnToLMMEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewProfileWasReturnToLMMEvent(userId string, targetIds []string) ProfileWasReturnToLMMEvent {
+func NewProfileWasReturnToLMMEvent(userId string, likesNum, matchNum, messageNum int) ProfileWasReturnToLMMEvent {
 	return ProfileWasReturnToLMMEvent{
-		UserId:        userId,
-		TargetUserIds: targetIds,
-		UnixTime:      time.Now().Unix(),
-		EventType:     "FEEDS_LLM_PROFILES",
+		UserId:             userId,
+		LikeYouProfilesNum: likesNum,
+		MatchProfilesNum:   matchNum,
+		MessageProfilesNum: messageNum,
+		UnixTime:           time.Now().Unix(),
+		EventType:          "FEEDS_LLM_PROFILES",
 	}
 }
