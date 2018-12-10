@@ -19,6 +19,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"sort"
 )
 
 //return userId, sessionToken, ok, error string
@@ -505,4 +506,18 @@ func GetResolutionPhotoId(userId, originPhotoId, resolution string, anlogger *Lo
 
 func IsItOriginPhoto(photoId string) bool {
 	return strings.HasPrefix(photoId, "origin_")
+}
+
+func GeneratePartitionKey(arr ... string) string {
+	sort.Strings(arr)
+	if len(arr) == 0 {
+		return ""
+	}
+	key := arr[0]
+	for index, each := range arr {
+		if index != 0 {
+			key += "_" + each
+		}
+	}
+	return key
 }

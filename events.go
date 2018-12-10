@@ -63,6 +63,7 @@ func NewUserAcceptTermsEvent(userId, customerId, locale, sourceIp, deviceModel, 
 
 type UserProfileCreatedEvent struct {
 	UserId      string `json:"userId"`
+	SourceIp    string `json:"sourceIp"`
 	Sex         string `json:"sex"`
 	YearOfBirth int    `json:"yearOfBirth"`
 	UnixTime    int64  `json:"unixTime"`
@@ -73,9 +74,10 @@ func (event UserProfileCreatedEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserProfileCreatedEvent(userId, sex string, yearOfBirth int) *UserProfileCreatedEvent {
+func NewUserProfileCreatedEvent(userId, sex, sourceIp string, yearOfBirth int) *UserProfileCreatedEvent {
 	return &UserProfileCreatedEvent{
 		UserId:      userId,
+		SourceIp:    sourceIp,
 		Sex:         sex,
 		YearOfBirth: yearOfBirth,
 		UnixTime:    time.Now().Unix(),
@@ -85,6 +87,7 @@ func NewUserProfileCreatedEvent(userId, sex string, yearOfBirth int) *UserProfil
 
 type UserSettingsUpdatedEvent struct {
 	UserId              string `json:"userId"`
+	SourceIp            string `json:"sourceIp"`
 	SafeDistanceInMeter int    `json:"safeDistanceInMeter"` // 0 (default for men) || 10 (default for women)
 	PushMessages        bool   `json:"pushMessages"`        // true (default for men) || false (default for women)
 	PushMatches         bool   `json:"pushMatches"`         // true (default)
@@ -97,9 +100,10 @@ func (event UserSettingsUpdatedEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserSettingsUpdatedEvent(userId string, safeDistanceInMeter int, pushMessages, pushMatches bool, pushLikes string, ) *UserSettingsUpdatedEvent {
+func NewUserSettingsUpdatedEvent(userId, sourceIp string, safeDistanceInMeter int, pushMessages, pushMatches bool, pushLikes string, ) *UserSettingsUpdatedEvent {
 	return &UserSettingsUpdatedEvent{
 		UserId:              userId,
+		SourceIp:            sourceIp,
 		SafeDistanceInMeter: safeDistanceInMeter,
 		PushMessages:        pushMessages,
 		PushMatches:         pushMatches,
@@ -109,8 +113,29 @@ func NewUserSettingsUpdatedEvent(userId string, safeDistanceInMeter int, pushMes
 	}
 }
 
+type GetUserSettingsEvent struct {
+	UserId    string `json:"userId"`
+	SourceIp  string `json:"sourceIp"`
+	UnixTime  int64  `json:"unixTime"`
+	EventType string `json:"eventType"`
+}
+
+func (event GetUserSettingsEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewGetUserSettingsEvent(userId, sourceIp string) *GetUserSettingsEvent {
+	return &GetUserSettingsEvent{
+		UserId:    userId,
+		SourceIp:  sourceIp,
+		UnixTime:  time.Now().Unix(),
+		EventType: "AUTH_GET_USER_SETTINGS",
+	}
+}
+
 type UserCallDeleteHimselfEvent struct {
 	UserId           string `json:"userId"`
+	SourceIp         string `json:"sourceIp"`
 	UserReportStatus string `json:"userReportStatus"`
 	UnixTime         int64  `json:"unixTime"`
 	EventType        string `json:"eventType"`
@@ -120,9 +145,10 @@ func (event UserCallDeleteHimselfEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserCallDeleteHimselfEvent(userId string, userReportStatus string) *UserCallDeleteHimselfEvent {
+func NewUserCallDeleteHimselfEvent(userId, sourceIp string, userReportStatus string) *UserCallDeleteHimselfEvent {
 	return &UserCallDeleteHimselfEvent{
 		UserId:           userId,
+		SourceIp:         sourceIp,
 		UserReportStatus: userReportStatus,
 		UnixTime:         time.Now().Unix(),
 		EventType:        UserDeleteHimselfEvent,
@@ -152,6 +178,7 @@ func NewUserOnlineEvent(userId string) *UserOnlineEvent {
 
 type UserAskUploadPhotoLinkEvent struct {
 	UserId    string `json:"userId"`
+	SourceIp  string `json:"sourceIp"`
 	Bucket    string `json:"bucket"`
 	PhotoKey  string `json:"photoKey"`
 	UnixTime  int64  `json:"unixTime"`
@@ -162,9 +189,10 @@ func (event UserAskUploadPhotoLinkEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserAskUploadLinkEvent(bucket, photoKey, userId string) *UserAskUploadPhotoLinkEvent {
+func NewUserAskUploadLinkEvent(bucket, photoKey, userId, sourceIp string) *UserAskUploadPhotoLinkEvent {
 	return &UserAskUploadPhotoLinkEvent{
 		UserId:    userId,
+		SourceIp:  sourceIp,
 		Bucket:    bucket,
 		PhotoKey:  photoKey,
 		UnixTime:  time.Now().Unix(),
@@ -202,6 +230,7 @@ func NewUserUploadedPhotoEvent(userId, bucket, key, photoId, photoType string, s
 
 type UserDeletePhotoEvent struct {
 	UserId               string `json:"userId"`
+	SourceIp             string `json:"sourceIp"`
 	PhotoId              string `json:"photoId"`
 	UserTakePartInReport bool   `json:"userTakePartInReport"`
 	UnixTime             int64  `json:"unixTime"`
@@ -212,9 +241,10 @@ func (event UserDeletePhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserDeletePhotoEvent(userId, photoId string, userTakePartInReport bool) *UserDeletePhotoEvent {
+func NewUserDeletePhotoEvent(userId, photoId, sourceIp string, userTakePartInReport bool) *UserDeletePhotoEvent {
 	return &UserDeletePhotoEvent{
 		UserId:               userId,
+		SourceIp:             sourceIp,
 		PhotoId:              photoId,
 		UserTakePartInReport: userTakePartInReport,
 		UnixTime:             time.Now().Unix(),
@@ -243,6 +273,28 @@ func NewRemoveTooLargeObjectEvent(userId, bucket, key string, size int64) *Remov
 		Size:      size,
 		UnixTime:  time.Now().Unix(),
 		EventType: "IMAGE_REMOVE_TO_BIG_S3_OBJECT",
+	}
+}
+
+type GetOwnPhotosEvent struct {
+	UserId      string `json:"userId"`
+	SourceIp    string `json:"sourceIp"`
+	OwnPhotoNum int    `json:"ownPhotoNum"`
+	UnixTime    int64  `json:"unixTime"`
+	EventType   string `json:"eventType"`
+}
+
+func (event GetOwnPhotosEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewGetOwnPhotosEvent(userId, sourceIp string, ownPhotoNum int) *GetOwnPhotosEvent {
+	return &GetOwnPhotosEvent{
+		UserId:      userId,
+		SourceIp:    sourceIp,
+		OwnPhotoNum: ownPhotoNum,
+		UnixTime:    time.Now().Unix(),
+		EventType:   "IMAGE_GET_OWN_PHOTOS",
 	}
 }
 
@@ -275,6 +327,7 @@ func (event PhotoLikeInternalEvent) String() string {
 
 type UserLikePhotoEvent struct {
 	UserId                string `json:"userId"`
+	SourceIp              string `json:"sourceIp"`
 	PhotoId               string `json:"photoId"`
 	OriginPhotoId         string `json:"originPhotoId"`
 	TargetUserId          string `json:"targetUserId"`
@@ -290,9 +343,10 @@ func (event UserLikePhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source string, likeCount, likedAt int, serviceName string) *UserLikePhotoEvent {
+func NewUserLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, likeCount, likedAt int, serviceName string) *UserLikePhotoEvent {
 	return &UserLikePhotoEvent{
 		UserId:                userId,
+		SourceIp:              sourceIp,
 		PhotoId:               photoId,
 		OriginPhotoId:         originPhotoId,
 		TargetUserId:          targetUserId,
@@ -307,6 +361,7 @@ func NewUserLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source 
 
 type UserViewPhotoEvent struct {
 	UserId                string `json:"userId"`
+	SourceIp              string `json:"sourceIp"`
 	PhotoId               string `json:"photoId"`
 	OriginPhotoId         string `json:"originPhotoId"`
 	TargetUserId          string `json:"targetUserId"`
@@ -323,9 +378,10 @@ func (event UserViewPhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source string, viewCount, viewTimeSec, viewAt int, serviceName string) *UserViewPhotoEvent {
+func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, viewCount, viewTimeSec, viewAt int, serviceName string) *UserViewPhotoEvent {
 	return &UserViewPhotoEvent{
 		UserId:                userId,
+		SourceIp:              sourceIp,
 		PhotoId:               photoId,
 		OriginPhotoId:         originPhotoId,
 		TargetUserId:          targetUserId,
@@ -341,6 +397,7 @@ func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source 
 
 type UserBlockOtherEvent struct {
 	UserId                string `json:"userId"`
+	SourceIp              string `json:"sourceIp"`
 	TargetUserId          string `json:"targetUserId"`
 	TargetPhotoId         string `json:"targetPhotoId"`
 	OriginPhotoId         string `json:"originPhotoId"`
@@ -356,9 +413,10 @@ func (event UserBlockOtherEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, originPhotoId, source string, blockedAt, blockReasonNum int, serviceName string) *UserBlockOtherEvent {
+func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, originPhotoId, source, sourceIp string, blockedAt, blockReasonNum int, serviceName string) *UserBlockOtherEvent {
 	return &UserBlockOtherEvent{
 		UserId:                userId,
+		SourceIp:              sourceIp,
 		TargetUserId:          targetUserId,
 		TargetPhotoId:         targetPhotoId,
 		OriginPhotoId:         originPhotoId,
@@ -373,6 +431,7 @@ func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, originPhotoId, 
 
 type UserUnLikePhotoEvent struct {
 	UserId                string `json:"userId"`
+	SourceIp              string `json:"sourceIp"`
 	PhotoId               string `json:"photoId"`
 	OriginPhotoId         string `json:"originPhotoId"`
 	TargetUserId          string `json:"targetUserId"`
@@ -387,9 +446,10 @@ func (event UserUnLikePhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source string, unLikedAt int, serviceName string) *UserUnLikePhotoEvent {
+func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, unLikedAt int, serviceName string) *UserUnLikePhotoEvent {
 	return &UserUnLikePhotoEvent{
 		UserId:                userId,
+		SourceIp:              sourceIp,
 		PhotoId:               photoId,
 		OriginPhotoId:         originPhotoId,
 		TargetUserId:          targetUserId,
@@ -405,6 +465,7 @@ func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, sourc
 
 type ProfileWasReturnToNewFacesEvent struct {
 	UserId              string   `json:"userId"`
+	SourceIp            string   `json:"sourceIp"`
 	TargetUserIds       []string `json:"targetUserIds"`
 	TimeToDeleteViewRel int64    `json:"timeToDelete"`
 	NewFaceProfilesNum  int      `json:"newFaceProfilesNum"`
@@ -416,9 +477,10 @@ func (event ProfileWasReturnToNewFacesEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewProfileWasReturnToNewFacesEvent(userId string, timeToDeleteViewRel int64, targetIds []string) ProfileWasReturnToNewFacesEvent {
+func NewProfileWasReturnToNewFacesEvent(userId, sourceIp string, timeToDeleteViewRel int64, targetIds []string) ProfileWasReturnToNewFacesEvent {
 	return ProfileWasReturnToNewFacesEvent{
 		UserId:              userId,
+		SourceIp:            sourceIp,
 		TargetUserIds:       targetIds,
 		TimeToDeleteViewRel: timeToDeleteViewRel,
 		NewFaceProfilesNum:  len(targetIds),
@@ -429,6 +491,7 @@ func NewProfileWasReturnToNewFacesEvent(userId string, timeToDeleteViewRel int64
 
 type ProfileWasReturnToLMMEvent struct {
 	UserId             string `json:"userId"`
+	SourceIp           string `json:"sourceIp"`
 	LikeYouProfilesNum int    `json:"likeYouProfilesNum"`
 	MatchProfilesNum   int    `json:"matchProfilesNum"`
 	MessageProfilesNum int    `json:"messageProfilesNum"`
@@ -440,9 +503,10 @@ func (event ProfileWasReturnToLMMEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewProfileWasReturnToLMMEvent(userId string, likesNum, matchNum, messageNum int) ProfileWasReturnToLMMEvent {
+func NewProfileWasReturnToLMMEvent(userId, sourceIp string, likesNum, matchNum, messageNum int) ProfileWasReturnToLMMEvent {
 	return ProfileWasReturnToLMMEvent{
 		UserId:             userId,
+		SourceIp:           sourceIp,
 		LikeYouProfilesNum: likesNum,
 		MatchProfilesNum:   matchNum,
 		MessageProfilesNum: messageNum,
