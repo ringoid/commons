@@ -39,3 +39,36 @@ type InternalGetUserIdResp struct {
 func (resp InternalGetUserIdResp) String() string {
 	return fmt.Sprintf("%#v", resp)
 }
+
+//Feeds - Images communications
+
+type ProfilesResp struct {
+	BaseResponse
+	WarmUpRequest bool      `json:"warmUpRequest"`
+	Profiles      []Profile `json:"profiles"`
+}
+
+type Profile struct {
+	UserId                      string  `json:"userId"`
+	DefaultSortingOrderPosition int     `json:"defaultSortingOrderPosition"`
+	Unseen                      bool    `json:"unseen"`
+	Photos                      []Photo `json:"photos"`
+}
+
+type Photo struct {
+	PhotoId  string `json:"photoId"`
+	PhotoUri string `json:"photoUri"`
+}
+
+func (resp ProfilesResp) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
+
+type FacesWithUrlResp struct {
+	//contains userId_photoId like a key and photoUrl like a value
+	UserIdPhotoIdKeyUrlMap map[string]string `json:"urlPhotoMap"`
+}
+
+func (resp FacesWithUrlResp) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
