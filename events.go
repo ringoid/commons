@@ -303,6 +303,7 @@ const (
 	LikePhotoInternalEvent = "INTERNAL_PHOTO_LIKE_EVENT"
 	UserDeleteHimselfEvent = "AUTH_USER_CALL_DELETE_HIMSELF"
 	UserBlockEvent         = "ACTION_USER_BLOCK_OTHER"
+	UserMessageEvent       = "INTERNAL_USER_SEND_MESSAGE_EVENT"
 )
 
 type BaseInternalEvent struct {
@@ -461,6 +462,38 @@ func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, sourc
 	}
 }
 
+type UserMsgEvent struct {
+	UserId        string `json:"userId"`
+	SourceIp      string `json:"sourceIp"`
+	TargetUserId  string `json:"targetUserId"`
+	PhotoId       string `json:"photoId"`
+	OriginPhotoId string `json:"originPhotoId"`
+	Text          string `json:"text"`
+	Source        string `json:"source"`
+	MessageAt     int    `json:"messageAt"`
+	UnixTime      int64  `json:"unixTime"`
+	EventType     string `json:"eventType"`
+}
+
+func (event UserMsgEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserMsgEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp, text string, messageAt int) *UserMsgEvent {
+	return &UserMsgEvent{
+		UserId:        userId,
+		SourceIp:      sourceIp,
+		TargetUserId:  targetUserId,
+		PhotoId:       photoId,
+		OriginPhotoId: originPhotoId,
+		Text:          text,
+		Source:        source,
+		MessageAt:     messageAt,
+		UnixTime:      time.Now().Unix(),
+		EventType:     "ACTION_USER_MESSAGE",
+	}
+}
+
 //feeds service
 
 type ProfileWasReturnToNewFacesEvent struct {
@@ -512,5 +545,27 @@ func NewProfileWasReturnToLMMEvent(userId, sourceIp string, likesNum, matchNum, 
 		MessageProfilesNum: messageNum,
 		UnixTime:           time.Now().Unix(),
 		EventType:          "FEEDS_LLM_PROFILES",
+	}
+}
+
+type UserSendMessageEvent struct {
+	UserId       string `json:"userId"`
+	TargetUserId string `json:"targetUserId"`
+	Text         string `json:"text"`
+	UnixTime     int64  `json:"unixTime"`
+	EventType    string `json:"eventType"`
+}
+
+func (event UserSendMessageEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserSendMessageEvent(userId, targetUserId, text string) *UserSendMessageEvent {
+	return &UserSendMessageEvent{
+		UserId:       userId,
+		TargetUserId: targetUserId,
+		Text:         text,
+		UnixTime:     time.Now().Unix(),
+		EventType:    UserMessageEvent,
 	}
 }

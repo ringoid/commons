@@ -73,6 +73,11 @@ const (
 
 	PhotoPrimaryKeyMetaPostfix = "_meta"
 
+	MessagesConversationIdColumnName = "conversion_id"
+	MessagesCreatedAtColumnName      = "message_created_at"
+	MessagesSenderIdColumnName       = "sender_id"
+	MessagesTextColumnName           = "message_text"
+
 	InternalServerError           = `{"errorCode":"InternalServerError","errorMessage":"Internal Server Error"}`
 	WrongRequestParamsClientError = `{"errorCode":"WrongParamsClientError","errorMessage":"Wrong request params"}`
 	PhoneNumberClientError        = `{"errorCode":"PhoneNumberClientError","errorMessage":"Phone number is invalid"}`
@@ -91,10 +96,11 @@ const (
 	Twilio = "Twilio"
 	Nexmo  = "Nexmo"
 
-	LikeActionType   = "LIKE"
-	ViewActionType   = "VIEW"
-	BlockActionType  = "BLOCK"
-	UnlikeActionType = "UNLIKE"
+	LikeActionType    = "LIKE"
+	ViewActionType    = "VIEW"
+	BlockActionType   = "BLOCK"
+	UnlikeActionType  = "UNLIKE"
+	MessageActionType = "MESSAGE"
 
 	UserActiveStatus = "ACTIVE"
 	UserHiddenStatus = "HIDDEN"
@@ -149,4 +155,5 @@ func init() {
 	ActionNames[ViewActionType] = true
 	ActionNames[BlockActionType] = true
 	ActionNames[UnlikeActionType] = true
+	ActionNames[MessageActionType] = true
 }

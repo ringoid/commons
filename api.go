@@ -72,3 +72,29 @@ type FacesWithUrlResp struct {
 func (resp FacesWithUrlResp) String() string {
 	return fmt.Sprintf("%#v", resp)
 }
+
+// Feeds - Messages
+
+type InternalGetMessagesReq struct {
+	WarmUpRequest bool      `json:"warmUpRequest"`
+	SourceUserId  string   `json:"sourceUserId"`
+	TargetUserIds []string `json:"targetUserIds"`
+}
+
+func (req InternalGetMessagesReq) String() string {
+	return fmt.Sprintf("%#v", req)
+}
+
+type InternalGetMessagesResp struct {
+	//key = userId on the other side of conversation
+	ConversationsMap map[string][]Message `json:"conversationsMap"`
+}
+
+func (resp InternalGetMessagesResp) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
+
+type Message struct {
+	WasYouSender bool   `json:"wasYouSender"`
+	Text         string `json:"text"`
+}
