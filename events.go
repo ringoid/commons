@@ -553,6 +553,7 @@ type UserSendMessageEvent struct {
 	TargetUserId string `json:"targetUserId"`
 	Text         string `json:"text"`
 	UnixTime     int64  `json:"unixTime"`
+	MessageAt    int64  `json:"messageAt"`
 	EventType    string `json:"eventType"`
 }
 
@@ -560,12 +561,13 @@ func (event UserSendMessageEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserSendMessageEvent(userId, targetUserId, text string) *UserSendMessageEvent {
+func NewUserSendMessageEvent(userId, targetUserId, text string, messageAt int64) *UserSendMessageEvent {
 	return &UserSendMessageEvent{
 		UserId:       userId,
 		TargetUserId: targetUserId,
 		Text:         text,
 		UnixTime:     time.Now().Unix(),
+		MessageAt:    messageAt,
 		EventType:    UserMessageEvent,
 	}
 }

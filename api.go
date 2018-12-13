@@ -49,10 +49,11 @@ type ProfilesResp struct {
 }
 
 type Profile struct {
-	UserId                      string  `json:"userId"`
-	DefaultSortingOrderPosition int     `json:"defaultSortingOrderPosition"`
-	Unseen                      bool    `json:"unseen"`
-	Photos                      []Photo `json:"photos"`
+	UserId                      string    `json:"userId"`
+	DefaultSortingOrderPosition int       `json:"defaultSortingOrderPosition"`
+	Unseen                      bool      `json:"unseen"`
+	Photos                      []Photo   `json:"photos"`
+	Messages                    []Message `json:"messages"`
 }
 
 type Photo struct {
@@ -76,7 +77,7 @@ func (resp FacesWithUrlResp) String() string {
 // Feeds - Messages
 
 type InternalGetMessagesReq struct {
-	WarmUpRequest bool      `json:"warmUpRequest"`
+	WarmUpRequest bool     `json:"warmUpRequest"`
 	SourceUserId  string   `json:"sourceUserId"`
 	TargetUserIds []string `json:"targetUserIds"`
 }
