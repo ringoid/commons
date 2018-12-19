@@ -51,7 +51,7 @@ type ProfilesResp struct {
 type Profile struct {
 	UserId                      string    `json:"userId"`
 	DefaultSortingOrderPosition int       `json:"defaultSortingOrderPosition"`
-	Unseen                      bool      `json:"unseen"`
+	Unseen                      bool      `json:"notSeen"`
 	Photos                      []Photo   `json:"photos"`
 	Messages                    []Message `json:"messages"`
 }
