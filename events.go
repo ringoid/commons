@@ -494,6 +494,41 @@ func NewUserMsgEvent(userId, photoId, originPhotoId, targetUserId, source, sourc
 	}
 }
 
+//todo
+type UserOpenChantEvent struct {
+	UserId          string `json:"userId"`
+	SourceIp        string `json:"sourceIp"`
+	TargetUserId    string `json:"targetUserId"`
+	PhotoId         string `json:"photoId"`
+	OriginPhotoId   string `json:"originPhotoId"`
+	Source          string `json:"source"`
+	OpenChatCount   int    `json:"openChatCount"`
+	OpenChatAt      int    `json:"openChatAt"`
+	OpenChatTimeSec int    `json:"openChatTimeSec"`
+	UnixTime        int64  `json:"unixTime"`
+	EventType       string `json:"eventType"`
+}
+
+func (event UserOpenChantEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserOpenChantEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, openChatCount, openChatAt, OpenChatTimeSec int) *UserOpenChantEvent {
+	return &UserOpenChantEvent{
+		UserId:          userId,
+		SourceIp:        sourceIp,
+		TargetUserId:    targetUserId,
+		PhotoId:         photoId,
+		OriginPhotoId:   originPhotoId,
+		Source:          source,
+		OpenChatCount:   openChatCount,
+		OpenChatTimeSec: OpenChatTimeSec,
+		OpenChatAt:      openChatAt,
+		UnixTime:        time.Now().Unix(),
+		EventType:       "ACTION_USER_OPEN_CHAT",
+	}
+}
+
 //feeds service
 
 type ProfileWasReturnToNewFacesEvent struct {

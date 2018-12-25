@@ -101,6 +101,7 @@ const (
 	BlockActionType   = "BLOCK"
 	UnlikeActionType  = "UNLIKE"
 	MessageActionType = "MESSAGE"
+	OpenChatActionType = "OPEN_CHAT"
 
 	UserActiveStatus = "ACTIVE"
 	UserHiddenStatus = "HIDDEN"
