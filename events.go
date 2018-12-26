@@ -494,7 +494,6 @@ func NewUserMsgEvent(userId, photoId, originPhotoId, targetUserId, source, sourc
 	}
 }
 
-//todo
 type UserOpenChantEvent struct {
 	UserId          string `json:"userId"`
 	SourceIp        string `json:"sourceIp"`

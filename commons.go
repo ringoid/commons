@@ -96,11 +96,11 @@ const (
 	Twilio = "Twilio"
 	Nexmo  = "Nexmo"
 
-	LikeActionType    = "LIKE"
-	ViewActionType    = "VIEW"
-	BlockActionType   = "BLOCK"
-	UnlikeActionType  = "UNLIKE"
-	MessageActionType = "MESSAGE"
+	LikeActionType     = "LIKE"
+	ViewActionType     = "VIEW"
+	BlockActionType    = "BLOCK"
+	UnlikeActionType   = "UNLIKE"
+	MessageActionType  = "MESSAGE"
 	OpenChatActionType = "OPEN_CHAT"
 
 	UserActiveStatus = "ACTIVE"
@@ -157,4 +157,5 @@ func init() {
 	ActionNames[BlockActionType] = true
 	ActionNames[UnlikeActionType] = true
 	ActionNames[MessageActionType] = true
+	ActionNames[OpenChatActionType] = true
 }
