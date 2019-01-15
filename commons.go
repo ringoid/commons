@@ -129,6 +129,11 @@ func init() {
 	AllowedPhotoResolution["1080x1440"] = true
 	AllowedPhotoResolution["1440x1920"] = true
 
+	AllowedPhotoResolution["750x1000"] = true
+	AllowedPhotoResolution["828x1344"] = true
+	AllowedPhotoResolution["1125x1827"] = true
+	AllowedPhotoResolution["1242x2016"] = true
+
 	ResolutionValues = make(map[string]int)
 	ResolutionValues["480x640_width"] = 480
 	ResolutionValues["480x640_height"] = 640
@@ -141,6 +146,19 @@ func init() {
 
 	ResolutionValues["1440x1920_width"] = 1440
 	ResolutionValues["1440x1920_height"] = 1920
+
+	ResolutionValues["750x1000_width"] = 750
+	ResolutionValues["750x1000_height"] = 1000
+
+	ResolutionValues["828x1344_width"] = 828
+	ResolutionValues["828x1344_height"] = 1344
+
+	ResolutionValues["1125x1827_width"] = 1125
+	ResolutionValues["1125x1827_height"] = 1827
+
+	ResolutionValues["1242x2016_width"] = 1125
+	ResolutionValues["1242x2016_height"] = 1827
+
 
 	FeedNames = make(map[string]bool)
 	FeedNames["new_faces"] = true
