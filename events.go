@@ -531,54 +531,58 @@ func NewUserOpenChantEvent(userId, photoId, originPhotoId, targetUserId, source,
 //feeds service
 
 type ProfileWasReturnToNewFacesEvent struct {
-	UserId              string   `json:"userId"`
-	SourceIp            string   `json:"sourceIp"`
-	TargetUserIds       []string `json:"targetUserIds"`
-	TimeToDeleteViewRel int64    `json:"timeToDelete"`
-	NewFaceProfilesNum  int      `json:"newFaceProfilesNum"`
-	UnixTime            int64    `json:"unixTime"`
-	EventType           string   `json:"eventType"`
+	UserId                string   `json:"userId"`
+	SourceIp              string   `json:"sourceIp"`
+	TargetUserIds         []string `json:"targetUserIds"`
+	TimeToDeleteViewRel   int64    `json:"timeToDelete"`
+	NewFaceProfilesNum    int      `json:"newFaceProfilesNum"`
+	RepeatRequestAfterSec int      `json:"repeatRequestAfterSec"`
+	UnixTime              int64    `json:"unixTime"`
+	EventType             string   `json:"eventType"`
 }
 
 func (event ProfileWasReturnToNewFacesEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewProfileWasReturnToNewFacesEvent(userId, sourceIp string, timeToDeleteViewRel int64, targetIds []string) ProfileWasReturnToNewFacesEvent {
+func NewProfileWasReturnToNewFacesEvent(userId, sourceIp string, timeToDeleteViewRel int64, targetIds []string, repeatRequestAfterSec int) ProfileWasReturnToNewFacesEvent {
 	return ProfileWasReturnToNewFacesEvent{
-		UserId:              userId,
-		SourceIp:            sourceIp,
-		TargetUserIds:       targetIds,
-		TimeToDeleteViewRel: timeToDeleteViewRel,
-		NewFaceProfilesNum:  len(targetIds),
-		UnixTime:            time.Now().Unix(),
-		EventType:           "FEEDS_NEW_FACES_SEEN_PROFILES",
+		UserId:                userId,
+		SourceIp:              sourceIp,
+		TargetUserIds:         targetIds,
+		TimeToDeleteViewRel:   timeToDeleteViewRel,
+		NewFaceProfilesNum:    len(targetIds),
+		RepeatRequestAfterSec: repeatRequestAfterSec,
+		UnixTime:              time.Now().Unix(),
+		EventType:             "FEEDS_NEW_FACES_SEEN_PROFILES",
 	}
 }
 
 type ProfileWasReturnToLMMEvent struct {
-	UserId             string `json:"userId"`
-	SourceIp           string `json:"sourceIp"`
-	LikeYouProfilesNum int    `json:"likeYouProfilesNum"`
-	MatchProfilesNum   int    `json:"matchProfilesNum"`
-	MessageProfilesNum int    `json:"messageProfilesNum"`
-	UnixTime           int64  `json:"unixTime"`
-	EventType          string `json:"eventType"`
+	UserId                string `json:"userId"`
+	SourceIp              string `json:"sourceIp"`
+	LikeYouProfilesNum    int    `json:"likeYouProfilesNum"`
+	MatchProfilesNum      int    `json:"matchProfilesNum"`
+	MessageProfilesNum    int    `json:"messageProfilesNum"`
+	RepeatRequestAfterSec int    `json:"repeatRequestAfterSec"`
+	UnixTime              int64  `json:"unixTime"`
+	EventType             string `json:"eventType"`
 }
 
 func (event ProfileWasReturnToLMMEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewProfileWasReturnToLMMEvent(userId, sourceIp string, likesNum, matchNum, messageNum int) ProfileWasReturnToLMMEvent {
+func NewProfileWasReturnToLMMEvent(userId, sourceIp string, likesNum, matchNum, messageNum, repeatRequestAfterSec int) ProfileWasReturnToLMMEvent {
 	return ProfileWasReturnToLMMEvent{
-		UserId:             userId,
-		SourceIp:           sourceIp,
-		LikeYouProfilesNum: likesNum,
-		MatchProfilesNum:   matchNum,
-		MessageProfilesNum: messageNum,
-		UnixTime:           time.Now().Unix(),
-		EventType:          "FEEDS_LLM_PROFILES",
+		UserId:                userId,
+		SourceIp:              sourceIp,
+		LikeYouProfilesNum:    likesNum,
+		MatchProfilesNum:      matchNum,
+		MessageProfilesNum:    messageNum,
+		RepeatRequestAfterSec: repeatRequestAfterSec,
+		UnixTime:              time.Now().Unix(),
+		EventType:             "FEEDS_LLM_PROFILES",
 	}
 }
 
