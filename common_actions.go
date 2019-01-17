@@ -237,7 +237,7 @@ func UpdateLastOnlineTimeAndBuildNum(userId, userProfileTableName string, buildN
 			},
 			ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
 				":onlineTimeV": {
-					N: aws.String(fmt.Sprintf("%v", time.Now().Unix())),
+					N: aws.String(fmt.Sprintf("%v", UnixTimeInMillis())),
 				},
 				":buildNumV": {
 					N: aws.String(strconv.Itoa(buildNum)),
@@ -520,4 +520,8 @@ func GeneratePartitionKey(arr ... string) string {
 		}
 	}
 	return key
+}
+
+func UnixTimeInMillis() int64 {
+	return time.Now().Round(time.Millisecond).UnixNano() / 1000000
 }

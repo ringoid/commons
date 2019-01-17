@@ -35,7 +35,7 @@ func NewUserAcceptTermsEvent(userId, customerId, locale, sourceIp, deviceModel, 
 			SourceIp:   sourceIp,
 			CustomerId: customerId,
 
-			UnixTime:                   time.Now().Unix(),
+			UnixTime:                   UnixTimeInMillis(),
 			DateTimeLegalAge:           dateTimeLegalAge,
 			DateTimePrivacyNotes:       dateTimePrivacyNotes,
 			DateTimeTermsAndConditions: dateTimeTermsAndConditions,
@@ -51,7 +51,7 @@ func NewUserAcceptTermsEvent(userId, customerId, locale, sourceIp, deviceModel, 
 		SourceIp:   sourceIp,
 		CustomerId: customerId,
 
-		UnixTime:                   time.Now().Unix(),
+		UnixTime:                   UnixTimeInMillis(),
 		DateTimeLegalAge:           dateTimeLegalAge,
 		DateTimePrivacyNotes:       dateTimePrivacyNotes,
 		DateTimeTermsAndConditions: dateTimeTermsAndConditions,
@@ -80,7 +80,7 @@ func NewUserProfileCreatedEvent(userId, sex, sourceIp string, yearOfBirth int) *
 		SourceIp:    sourceIp,
 		Sex:         sex,
 		YearOfBirth: yearOfBirth,
-		UnixTime:    time.Now().Unix(),
+		UnixTime:    UnixTimeInMillis(),
 		EventType:   "AUTH_USER_PROFILE_CREATED",
 	}
 }
@@ -108,7 +108,7 @@ func NewUserSettingsUpdatedEvent(userId, sourceIp string, safeDistanceInMeter in
 		PushMessages:        pushMessages,
 		PushMatches:         pushMatches,
 		PushLikes:           pushLikes,
-		UnixTime:            time.Now().Unix(),
+		UnixTime:            UnixTimeInMillis(),
 		EventType:           "AUTH_USER_SETTINGS_UPDATED",
 	}
 }
@@ -128,7 +128,7 @@ func NewGetUserSettingsEvent(userId, sourceIp string) *GetUserSettingsEvent {
 	return &GetUserSettingsEvent{
 		UserId:    userId,
 		SourceIp:  sourceIp,
-		UnixTime:  time.Now().Unix(),
+		UnixTime:  UnixTimeInMillis(),
 		EventType: "AUTH_GET_USER_SETTINGS",
 	}
 }
@@ -150,7 +150,7 @@ func NewUserCallDeleteHimselfEvent(userId, sourceIp string, userReportStatus str
 		UserId:           userId,
 		SourceIp:         sourceIp,
 		UserReportStatus: userReportStatus,
-		UnixTime:         time.Now().Unix(),
+		UnixTime:         UnixTimeInMillis(),
 		EventType:        UserDeleteHimselfEvent,
 	}
 }
@@ -169,7 +169,7 @@ func (event UserOnlineEvent) String() string {
 func NewUserOnlineEvent(userId string) *UserOnlineEvent {
 	return &UserOnlineEvent{
 		UserId:    userId,
-		UnixTime:  time.Now().Unix(),
+		UnixTime:  UnixTimeInMillis(),
 		EventType: "AUTH_USER_ONLINE",
 	}
 }
@@ -195,7 +195,7 @@ func NewUserAskUploadLinkEvent(bucket, photoKey, userId, sourceIp string) *UserA
 		SourceIp:  sourceIp,
 		Bucket:    bucket,
 		PhotoKey:  photoKey,
-		UnixTime:  time.Now().Unix(),
+		UnixTime:  UnixTimeInMillis(),
 		EventType: "IMAGE_USER_ASK_UPLOAD_PHOTO_LINK",
 	}
 }
@@ -223,7 +223,7 @@ func NewUserUploadedPhotoEvent(userId, bucket, key, photoId, photoType string, s
 		PhotoId:   photoId,
 		PhotoType: photoType,
 		Size:      size,
-		UnixTime:  time.Now().Unix(),
+		UnixTime:  UnixTimeInMillis(),
 		EventType: "IMAGE_USER_UPLOAD_PHOTO",
 	}
 }
@@ -247,7 +247,7 @@ func NewUserDeletePhotoEvent(userId, photoId, sourceIp string, userTakePartInRep
 		SourceIp:             sourceIp,
 		PhotoId:              photoId,
 		UserTakePartInReport: userTakePartInReport,
-		UnixTime:             time.Now().Unix(),
+		UnixTime:             UnixTimeInMillis(),
 		EventType:            "IMAGE_USER_DELETE_PHOTO",
 	}
 }
@@ -271,7 +271,7 @@ func NewRemoveTooLargeObjectEvent(userId, bucket, key string, size int64) *Remov
 		Bucket:    bucket,
 		Key:       key,
 		Size:      size,
-		UnixTime:  time.Now().Unix(),
+		UnixTime:  UnixTimeInMillis(),
 		EventType: "IMAGE_REMOVE_TO_BIG_S3_OBJECT",
 	}
 }
@@ -293,7 +293,7 @@ func NewGetOwnPhotosEvent(userId, sourceIp string, ownPhotoNum int) *GetOwnPhoto
 		UserId:      userId,
 		SourceIp:    sourceIp,
 		OwnPhotoNum: ownPhotoNum,
-		UnixTime:    time.Now().Unix(),
+		UnixTime:    UnixTimeInMillis(),
 		EventType:   "IMAGE_GET_OWN_PHOTOS",
 	}
 }
@@ -334,7 +334,7 @@ type UserLikePhotoEvent struct {
 	TargetUserId          string `json:"targetUserId"`
 	LikeCount             int    `json:"likeCount"`
 	Source                string `json:"source"`
-	LikedAt               int    `json:"likedAt"`
+	LikedAt               int64  `json:"likedAt"`
 	UnixTime              int64  `json:"unixTime"`
 	EventType             string `json:"eventType"`
 	InternalServiceSource string `json:"internalServiceSource"`
@@ -344,7 +344,7 @@ func (event UserLikePhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, likeCount, likedAt int, serviceName string) *UserLikePhotoEvent {
+func NewUserLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, likeCount int, likedAt int64, serviceName string) *UserLikePhotoEvent {
 	return &UserLikePhotoEvent{
 		UserId:                userId,
 		SourceIp:              sourceIp,
@@ -354,7 +354,7 @@ func NewUserLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source,
 		LikeCount:             likeCount,
 		LikedAt:               likedAt,
 		Source:                source,
-		UnixTime:              time.Now().Unix(),
+		UnixTime:              UnixTimeInMillis(),
 		EventType:             "ACTION_USER_LIKE_PHOTO",
 		InternalServiceSource: serviceName,
 	}
@@ -368,7 +368,7 @@ type UserViewPhotoEvent struct {
 	TargetUserId          string `json:"targetUserId"`
 	ViewCount             int    `json:"viewCount"`
 	ViewTimeSec           int    `json:"viewTimeSec"`
-	ViewAt                int    `json:"viewAt"`
+	ViewAt                int64  `json:"viewAt"`
 	Source                string `json:"source"`
 	UnixTime              int64  `json:"unixTime"`
 	EventType             string `json:"eventType"`
@@ -379,7 +379,7 @@ func (event UserViewPhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, viewCount, viewTimeSec, viewAt int, serviceName string) *UserViewPhotoEvent {
+func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, viewCount, viewTimeSec int, viewAt int64, serviceName string) *UserViewPhotoEvent {
 	return &UserViewPhotoEvent{
 		UserId:                userId,
 		SourceIp:              sourceIp,
@@ -390,7 +390,7 @@ func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source,
 		ViewTimeSec:           viewTimeSec,
 		ViewAt:                viewAt,
 		Source:                source,
-		UnixTime:              time.Now().Unix(),
+		UnixTime:              UnixTimeInMillis(),
 		EventType:             "ACTION_USER_VIEW_PHOTO",
 		InternalServiceSource: serviceName,
 	}
@@ -403,7 +403,7 @@ type UserBlockOtherEvent struct {
 	TargetPhotoId         string `json:"targetPhotoId"`
 	OriginPhotoId         string `json:"originPhotoId"`
 	BlockReasonNum        int    `json:"blockReasonNum"`
-	BlockedAt             int    `json:"blockedAt"`
+	BlockedAt             int64  `json:"blockedAt"`
 	Source                string `json:"source"`
 	UnixTime              int64  `json:"unixTime"`
 	EventType             string `json:"eventType"`
@@ -414,7 +414,7 @@ func (event UserBlockOtherEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, originPhotoId, source, sourceIp string, blockedAt, blockReasonNum int, serviceName string) *UserBlockOtherEvent {
+func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, originPhotoId, source, sourceIp string, blockedAt int64, blockReasonNum int, serviceName string) *UserBlockOtherEvent {
 	return &UserBlockOtherEvent{
 		UserId:                userId,
 		SourceIp:              sourceIp,
@@ -424,7 +424,7 @@ func NewUserBlockOtherEvent(userId, targetUserId, targetPhotoId, originPhotoId, 
 		BlockedAt:             blockedAt,
 		BlockReasonNum:        blockReasonNum,
 		Source:                source,
-		UnixTime:              time.Now().Unix(),
+		UnixTime:              UnixTimeInMillis(),
 		EventType:             UserBlockEvent,
 		InternalServiceSource: serviceName,
 	}
@@ -437,7 +437,7 @@ type UserUnLikePhotoEvent struct {
 	OriginPhotoId         string `json:"originPhotoId"`
 	TargetUserId          string `json:"targetUserId"`
 	Source                string `json:"source"`
-	UnLikedAt             int    `json:"unLikedAt"`
+	UnLikedAt             int64  `json:"unLikedAt"`
 	UnixTime              int64  `json:"unixTime"`
 	EventType             string `json:"eventType"`
 	InternalServiceSource string `json:"internalServiceSource"`
@@ -447,7 +447,7 @@ func (event UserUnLikePhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, unLikedAt int, serviceName string) *UserUnLikePhotoEvent {
+func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, unLikedAt int64, serviceName string) *UserUnLikePhotoEvent {
 	return &UserUnLikePhotoEvent{
 		UserId:                userId,
 		SourceIp:              sourceIp,
@@ -456,7 +456,7 @@ func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, sourc
 		TargetUserId:          targetUserId,
 		UnLikedAt:             unLikedAt,
 		Source:                source,
-		UnixTime:              time.Now().Unix(),
+		UnixTime:              UnixTimeInMillis(),
 		EventType:             "ACTION_USER_UNLIKE_PHOTO",
 		InternalServiceSource: serviceName,
 	}
@@ -470,7 +470,7 @@ type UserMsgEvent struct {
 	OriginPhotoId string `json:"originPhotoId"`
 	Text          string `json:"text"`
 	Source        string `json:"source"`
-	MessageAt     int    `json:"messageAt"`
+	MessageAt     int64  `json:"messageAt"`
 	UnixTime      int64  `json:"unixTime"`
 	EventType     string `json:"eventType"`
 }
@@ -479,7 +479,7 @@ func (event UserMsgEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserMsgEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp, text string, messageAt int) *UserMsgEvent {
+func NewUserMsgEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp, text string, messageAt int64) *UserMsgEvent {
 	return &UserMsgEvent{
 		UserId:        userId,
 		SourceIp:      sourceIp,
@@ -489,7 +489,7 @@ func NewUserMsgEvent(userId, photoId, originPhotoId, targetUserId, source, sourc
 		Text:          text,
 		Source:        source,
 		MessageAt:     messageAt,
-		UnixTime:      time.Now().Unix(),
+		UnixTime:      UnixTimeInMillis(),
 		EventType:     "ACTION_USER_MESSAGE",
 	}
 }
@@ -502,7 +502,7 @@ type UserOpenChantEvent struct {
 	OriginPhotoId   string `json:"originPhotoId"`
 	Source          string `json:"source"`
 	OpenChatCount   int    `json:"openChatCount"`
-	OpenChatAt      int    `json:"openChatAt"`
+	OpenChatAt      int64  `json:"openChatAt"`
 	OpenChatTimeSec int    `json:"openChatTimeSec"`
 	UnixTime        int64  `json:"unixTime"`
 	EventType       string `json:"eventType"`
@@ -512,7 +512,7 @@ func (event UserOpenChantEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserOpenChantEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, openChatCount, openChatAt, OpenChatTimeSec int) *UserOpenChantEvent {
+func NewUserOpenChantEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, openChatCount int, openChatAt int64, OpenChatTimeSec int) *UserOpenChantEvent {
 	return &UserOpenChantEvent{
 		UserId:          userId,
 		SourceIp:        sourceIp,
@@ -523,7 +523,7 @@ func NewUserOpenChantEvent(userId, photoId, originPhotoId, targetUserId, source,
 		OpenChatCount:   openChatCount,
 		OpenChatTimeSec: OpenChatTimeSec,
 		OpenChatAt:      openChatAt,
-		UnixTime:        time.Now().Unix(),
+		UnixTime:        UnixTimeInMillis(),
 		EventType:       "ACTION_USER_OPEN_CHAT",
 	}
 }
@@ -553,7 +553,7 @@ func NewProfileWasReturnToNewFacesEvent(userId, sourceIp string, timeToDeleteVie
 		TimeToDeleteViewRel:   timeToDeleteViewRel,
 		NewFaceProfilesNum:    len(targetIds),
 		RepeatRequestAfterSec: repeatRequestAfterSec,
-		UnixTime:              time.Now().Unix(),
+		UnixTime:              UnixTimeInMillis(),
 		EventType:             "FEEDS_NEW_FACES_SEEN_PROFILES",
 	}
 }
@@ -581,7 +581,7 @@ func NewProfileWasReturnToLMMEvent(userId, sourceIp string, likesNum, matchNum, 
 		MatchProfilesNum:      matchNum,
 		MessageProfilesNum:    messageNum,
 		RepeatRequestAfterSec: repeatRequestAfterSec,
-		UnixTime:              time.Now().Unix(),
+		UnixTime:              UnixTimeInMillis(),
 		EventType:             "FEEDS_LLM_PROFILES",
 	}
 }
@@ -604,7 +604,7 @@ func NewUserSendMessageEvent(userId, targetUserId, text string, messageAt int64)
 		UserId:       userId,
 		TargetUserId: targetUserId,
 		Text:         text,
-		UnixTime:     time.Now().Unix(),
+		UnixTime:     UnixTimeInMillis(),
 		MessageAt:    messageAt,
 		EventType:    UserMessageEvent,
 	}
