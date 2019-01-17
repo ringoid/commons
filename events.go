@@ -366,7 +366,7 @@ type UserViewPhotoEvent struct {
 	OriginPhotoId         string `json:"originPhotoId"`
 	TargetUserId          string `json:"targetUserId"`
 	ViewCount             int    `json:"viewCount"`
-	ViewTimeSec           int    `json:"viewTimeSec"`
+	ViewTimeMillis        int64  `json:"viewTimeMillis"`
 	ViewAt                int64  `json:"viewAt"`
 	Source                string `json:"source"`
 	UnixTime              int64  `json:"unixTime"`
@@ -378,7 +378,7 @@ func (event UserViewPhotoEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, viewCount, viewTimeSec int, viewAt int64, serviceName string) *UserViewPhotoEvent {
+func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, viewCount int, viewTimeMillis int64, viewAt int64, serviceName string) *UserViewPhotoEvent {
 	return &UserViewPhotoEvent{
 		UserId:                userId,
 		SourceIp:              sourceIp,
@@ -386,7 +386,7 @@ func NewUserViewPhotoEvent(userId, photoId, originPhotoId, targetUserId, source,
 		OriginPhotoId:         originPhotoId,
 		TargetUserId:          targetUserId,
 		ViewCount:             viewCount,
-		ViewTimeSec:           viewTimeSec,
+		ViewTimeMillis:        viewTimeMillis,
 		ViewAt:                viewAt,
 		Source:                source,
 		UnixTime:              UnixTimeInMillis(),
@@ -494,36 +494,36 @@ func NewUserMsgEvent(userId, photoId, originPhotoId, targetUserId, source, sourc
 }
 
 type UserOpenChantEvent struct {
-	UserId          string `json:"userId"`
-	SourceIp        string `json:"sourceIp"`
-	TargetUserId    string `json:"targetUserId"`
-	PhotoId         string `json:"photoId"`
-	OriginPhotoId   string `json:"originPhotoId"`
-	Source          string `json:"source"`
-	OpenChatCount   int    `json:"openChatCount"`
-	OpenChatAt      int64  `json:"openChatAt"`
-	OpenChatTimeSec int    `json:"openChatTimeSec"`
-	UnixTime        int64  `json:"unixTime"`
-	EventType       string `json:"eventType"`
+	UserId             string `json:"userId"`
+	SourceIp           string `json:"sourceIp"`
+	TargetUserId       string `json:"targetUserId"`
+	PhotoId            string `json:"photoId"`
+	OriginPhotoId      string `json:"originPhotoId"`
+	Source             string `json:"source"`
+	OpenChatCount      int    `json:"openChatCount"`
+	OpenChatAt         int64  `json:"openChatAt"`
+	OpenChatTimeMillis int64  `json:"openChatTimeMillis"`
+	UnixTime           int64  `json:"unixTime"`
+	EventType          string `json:"eventType"`
 }
 
 func (event UserOpenChantEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserOpenChantEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, openChatCount int, openChatAt int64, OpenChatTimeSec int) *UserOpenChantEvent {
+func NewUserOpenChantEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, openChatCount int, openChatAt, openChatTimeMillis int64) *UserOpenChantEvent {
 	return &UserOpenChantEvent{
-		UserId:          userId,
-		SourceIp:        sourceIp,
-		TargetUserId:    targetUserId,
-		PhotoId:         photoId,
-		OriginPhotoId:   originPhotoId,
-		Source:          source,
-		OpenChatCount:   openChatCount,
-		OpenChatTimeSec: OpenChatTimeSec,
-		OpenChatAt:      openChatAt,
-		UnixTime:        UnixTimeInMillis(),
-		EventType:       "ACTION_USER_OPEN_CHAT",
+		UserId:             userId,
+		SourceIp:           sourceIp,
+		TargetUserId:       targetUserId,
+		PhotoId:            photoId,
+		OriginPhotoId:      originPhotoId,
+		Source:             source,
+		OpenChatCount:      openChatCount,
+		OpenChatTimeMillis: openChatTimeMillis,
+		OpenChatAt:         openChatAt,
+		UnixTime:           UnixTimeInMillis(),
+		EventType:          "ACTION_USER_OPEN_CHAT",
 	}
 }
 
