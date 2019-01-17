@@ -1,7 +1,6 @@
 package commons
 
 import (
-	"time"
 	"fmt"
 )
 
@@ -534,7 +533,6 @@ type ProfileWasReturnToNewFacesEvent struct {
 	UserId                string   `json:"userId"`
 	SourceIp              string   `json:"sourceIp"`
 	TargetUserIds         []string `json:"targetUserIds"`
-	TimeToDeleteViewRel   int64    `json:"timeToDelete"`
 	NewFaceProfilesNum    int      `json:"newFaceProfilesNum"`
 	RepeatRequestAfterSec int      `json:"repeatRequestAfterSec"`
 	UnixTime              int64    `json:"unixTime"`
@@ -545,12 +543,11 @@ func (event ProfileWasReturnToNewFacesEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewProfileWasReturnToNewFacesEvent(userId, sourceIp string, timeToDeleteViewRel int64, targetIds []string, repeatRequestAfterSec int) ProfileWasReturnToNewFacesEvent {
+func NewProfileWasReturnToNewFacesEvent(userId, sourceIp string, targetIds []string, repeatRequestAfterSec int) ProfileWasReturnToNewFacesEvent {
 	return ProfileWasReturnToNewFacesEvent{
 		UserId:                userId,
 		SourceIp:              sourceIp,
 		TargetUserIds:         targetIds,
-		TimeToDeleteViewRel:   timeToDeleteViewRel,
 		NewFaceProfilesNum:    len(targetIds),
 		RepeatRequestAfterSec: repeatRequestAfterSec,
 		UnixTime:              UnixTimeInMillis(),
