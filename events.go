@@ -303,6 +303,8 @@ const (
 	UserDeleteHimselfEvent = "AUTH_USER_CALL_DELETE_HIMSELF"
 	UserBlockEvent         = "ACTION_USER_BLOCK_OTHER"
 	UserMessageEvent       = "INTERNAL_USER_SEND_MESSAGE_EVENT"
+
+	DeleteUserConversationInternalEvent = "INTERNAL_DELETE_USER_CONVERSATION_EVENT"
 )
 
 type BaseInternalEvent struct {
@@ -604,5 +606,23 @@ func NewUserSendMessageEvent(userId, targetUserId, text string, messageAt int64)
 		UnixTime:     UnixTimeInMillis(),
 		MessageAt:    messageAt,
 		EventType:    UserMessageEvent,
+	}
+}
+
+type DeleteUserConversationEvent struct {
+	UserId       string `json:"userId"`
+	TargetUserId string `json:"targetUserId"`
+	EventType    string `json:"eventType"`
+}
+
+func (event DeleteUserConversationEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewDeleteUserConversationEvent(userId, targetUserId string) *DeleteUserConversationEvent {
+	return &DeleteUserConversationEvent{
+		UserId:       userId,
+		TargetUserId: targetUserId,
+		EventType:    DeleteUserConversationInternalEvent,
 	}
 }
