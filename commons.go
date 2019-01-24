@@ -168,6 +168,7 @@ func init() {
 	FeedNames["messages_inbox"] = true
 	FeedNames["messages_starred"] = true
 	FeedNames["messages_sent"] = true
+	FeedNames["chat"] = true
 
 	ActionNames = make(map[string]bool)
 	ActionNames[LikeActionType] = true
