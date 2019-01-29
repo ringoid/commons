@@ -106,6 +106,7 @@ func SendAnalyticEvent(event interface{}, userId, deliveryStreamName string, aws
 
 	if err != nil {
 		anlogger.Errorf(lc, "commons_actions.go : error sending analytics event [%v] for userId [%s] : %v", event, userId, err)
+		return
 	}
 
 	anlogger.Debugf(lc, "commons_actions.go : successfully send analytics event [%v] for userId [%s]", event, userId)
