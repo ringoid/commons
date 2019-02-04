@@ -305,6 +305,7 @@ const (
 	UserMessageEvent       = "INTERNAL_USER_SEND_MESSAGE_EVENT"
 
 	DeleteUserConversationInternalEvent = "INTERNAL_DELETE_USER_CONVERSATION_EVENT"
+	HideUserPhotoInternalEvent          = "INTERNAL_HIDE_PHOTO_EVENT"
 )
 
 type BaseInternalEvent struct {
@@ -322,6 +323,16 @@ type PhotoLikeInternalEvent struct {
 }
 
 func (event PhotoLikeInternalEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+type HidePhotoInternalEvent struct {
+	EventType       string `json:"eventType"`
+	UserId          string `json:"userId"`
+	OriginalPhotoId string `json:"originPhotoId"`
+}
+
+func (event HidePhotoInternalEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
