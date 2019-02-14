@@ -111,7 +111,7 @@ const (
 )
 
 var MinimalAndroidBuildNum = 76
-var MinimaliOSBuildNum = 76
+var MinimaliOSBuildNum = 1
 
 var AllowedPhotoResolution map[string]bool
 var ResolutionValues map[string]int
