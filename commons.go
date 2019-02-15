@@ -115,6 +115,7 @@ var MinimaliOSBuildNum = 1
 
 var AllowedPhotoResolution map[string]bool
 var ResolutionValues map[string]int
+var BiggestDefaultPhotoResolution = "1440x1920" //currently use if client ask not existing resolution
 
 const DefaultJPEGQuality = 80
 const DefaultMaxPhotoSize = 20000000 //20 Mb
@@ -129,10 +130,11 @@ func init() {
 	AllowedPhotoResolution["1080x1440"] = true
 	AllowedPhotoResolution["1440x1920"] = true
 
+	AllowedPhotoResolution["640x852"] = true
 	AllowedPhotoResolution["750x1000"] = true
-	AllowedPhotoResolution["828x1344"] = true
-	AllowedPhotoResolution["1125x1827"] = true
-	AllowedPhotoResolution["1242x2016"] = true
+	AllowedPhotoResolution["828x1104"] = true
+	AllowedPhotoResolution["1125x1500"] = true
+	AllowedPhotoResolution["1242x1656"] = true
 
 	ResolutionValues = make(map[string]int)
 	ResolutionValues["480x640_width"] = 480
@@ -147,17 +149,20 @@ func init() {
 	ResolutionValues["1440x1920_width"] = 1440
 	ResolutionValues["1440x1920_height"] = 1920
 
+	ResolutionValues["640x852_width"] = 640
+	ResolutionValues["640x852_height"] = 852
+
 	ResolutionValues["750x1000_width"] = 750
 	ResolutionValues["750x1000_height"] = 1000
 
-	ResolutionValues["828x1344_width"] = 828
-	ResolutionValues["828x1344_height"] = 1344
+	ResolutionValues["828x1104_width"] = 828
+	ResolutionValues["828x1104_height"] = 1104
 
-	ResolutionValues["1125x1827_width"] = 1125
-	ResolutionValues["1125x1827_height"] = 1827
+	ResolutionValues["1125x1500_width"] = 1125
+	ResolutionValues["1125x1500_height"] = 1500
 
-	ResolutionValues["1242x2016_width"] = 1125
-	ResolutionValues["1242x2016_height"] = 1827
+	ResolutionValues["1242x1656_width"] = 1125
+	ResolutionValues["1242x1656_height"] = 1656
 
 
 	FeedNames = make(map[string]bool)
