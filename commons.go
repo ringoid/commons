@@ -110,8 +110,8 @@ const (
 	UserTakePartInReport  = "TAKE_PART_IN_REPORT"
 )
 
-var MinimalAndroidBuildNum = 76
-var MinimaliOSBuildNum = 1
+var MinimalAndroidBuildNum = 108
+var MinimaliOSBuildNum = 6
 
 var AllowedPhotoResolution map[string]bool
 var ResolutionValues map[string]int
