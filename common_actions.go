@@ -306,7 +306,7 @@ func Login(appVersion int, isItAndroid bool, token, secretWord, userProfileTable
 	}
 
 	event := NewUserOnlineEvent(userId)
-	partitionKey := userId
+	partitionKey := GeneratePartitionKey(userId)
 	ok, errStr = SendCommonEvent(event, userId, commonStreamName, partitionKey, awsKinesisClient, anlogger, lc)
 	if !ok {
 		return "", userStatus, userReportStatus, ok, errStr
