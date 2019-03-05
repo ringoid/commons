@@ -475,36 +475,38 @@ func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, sourc
 }
 
 type UserMsgEvent struct {
-	MessageId     string `json:"messageId"`
-	UserId        string `json:"userId"`
-	SourceIp      string `json:"sourceIp"`
-	TargetUserId  string `json:"targetUserId"`
-	PhotoId       string `json:"photoId"`
-	OriginPhotoId string `json:"originPhotoId"`
-	Text          string `json:"text"`
-	Source        string `json:"source"`
-	MessageAt     int64  `json:"messageAt"`
-	UnixTime      int64  `json:"unixTime"`
-	EventType     string `json:"eventType"`
+	MessageId      string `json:"messageId"`
+	ConversationId string `json:"conversationId"`
+	UserId         string `json:"userId"`
+	SourceIp       string `json:"sourceIp"`
+	TargetUserId   string `json:"targetUserId"`
+	PhotoId        string `json:"photoId"`
+	OriginPhotoId  string `json:"originPhotoId"`
+	Text           string `json:"text"`
+	Source         string `json:"source"`
+	MessageAt      int64  `json:"messageAt"`
+	UnixTime       int64  `json:"unixTime"`
+	EventType      string `json:"eventType"`
 }
 
 func (event UserMsgEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserMsgEvent(messageId, userId, photoId, originPhotoId, targetUserId, source, sourceIp, text string, messageAt int64) *UserMsgEvent {
+func NewUserMsgEvent(messageId, conversationId, userId, photoId, originPhotoId, targetUserId, source, sourceIp, text string, messageAt int64) *UserMsgEvent {
 	return &UserMsgEvent{
-		MessageId:     messageId,
-		UserId:        userId,
-		SourceIp:      sourceIp,
-		TargetUserId:  targetUserId,
-		PhotoId:       photoId,
-		OriginPhotoId: originPhotoId,
-		Text:          text,
-		Source:        source,
-		MessageAt:     messageAt,
-		UnixTime:      UnixTimeInMillis(),
-		EventType:     "ACTION_USER_MESSAGE",
+		MessageId:      messageId,
+		ConversationId: conversationId,
+		UserId:         userId,
+		SourceIp:       sourceIp,
+		TargetUserId:   targetUserId,
+		PhotoId:        photoId,
+		OriginPhotoId:  originPhotoId,
+		Text:           text,
+		Source:         source,
+		MessageAt:      messageAt,
+		UnixTime:       UnixTimeInMillis(),
+		EventType:      "ACTION_USER_MESSAGE",
 	}
 }
 
