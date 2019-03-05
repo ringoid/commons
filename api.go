@@ -84,8 +84,9 @@ type InternalLMMResp struct {
 }
 
 type InternalProfiles struct {
-	UserId   string   `json:"userId"`
-	PhotoIds []string `json:"photoIds"`
+	UserId   string    `json:"userId"`
+	PhotoIds []string  `json:"photoIds"`
+	Messages []Message `json:"messages"`
 }
 
 func (resp InternalLMMResp) String() string {
