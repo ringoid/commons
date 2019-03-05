@@ -475,6 +475,7 @@ func NewUserUnLikePhotoEvent(userId, photoId, originPhotoId, targetUserId, sourc
 }
 
 type UserMsgEvent struct {
+	MessageId     string `json:"messageId"`
 	UserId        string `json:"userId"`
 	SourceIp      string `json:"sourceIp"`
 	TargetUserId  string `json:"targetUserId"`
@@ -491,8 +492,9 @@ func (event UserMsgEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserMsgEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp, text string, messageAt int64) *UserMsgEvent {
+func NewUserMsgEvent(messageId, userId, photoId, originPhotoId, targetUserId, source, sourceIp, text string, messageAt int64) *UserMsgEvent {
 	return &UserMsgEvent{
+		MessageId:     messageId,
 		UserId:        userId,
 		SourceIp:      sourceIp,
 		TargetUserId:  targetUserId,
