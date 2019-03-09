@@ -575,6 +575,7 @@ func NewProfileWasReturnToNewFacesEvent(userId, sourceIp string, targetIds []str
 type ProfileWasReturnToLMMEvent struct {
 	UserId             string `json:"userId"`
 	SourceIp           string `json:"sourceIp"`
+	SourceFeed         string `json:"sourceFeed"`
 	LikeYouProfilesNum int    `json:"likeYouProfilesNum"`
 	MatchProfilesNum   int    `json:"matchProfilesNum"`
 	MessageProfilesNum int    `json:"messageProfilesNum"`
@@ -587,10 +588,11 @@ func (event ProfileWasReturnToLMMEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewProfileWasReturnToLMMEvent(userId, sourceIp string, likesNum, matchNum, messageNum int, repeatRequestAfter int64) ProfileWasReturnToLMMEvent {
+func NewProfileWasReturnToLMMEvent(userId, sourceIp, sourceFeed string, likesNum, matchNum, messageNum int, repeatRequestAfter int64) ProfileWasReturnToLMMEvent {
 	return ProfileWasReturnToLMMEvent{
 		UserId:             userId,
 		SourceIp:           sourceIp,
+		SourceFeed:         sourceFeed,
 		LikeYouProfilesNum: likesNum,
 		MatchProfilesNum:   matchNum,
 		MessageProfilesNum: messageNum,
