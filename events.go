@@ -510,37 +510,35 @@ func NewUserMsgEvent(messageId, conversationId, userId, photoId, originPhotoId, 
 	}
 }
 
-type UserOpenChantEvent struct {
-	UserId             string `json:"userId"`
-	SourceIp           string `json:"sourceIp"`
-	TargetUserId       string `json:"targetUserId"`
-	PhotoId            string `json:"photoId"`
-	OriginPhotoId      string `json:"originPhotoId"`
-	Source             string `json:"source"`
-	OpenChatCount      int    `json:"openChatCount"`
-	OpenChatAt         int64  `json:"openChatAt"`
-	OpenChatTimeMillis int64  `json:"openChatTimeMillis"`
-	UnixTime           int64  `json:"unixTime"`
-	EventType          string `json:"eventType"`
+type UserViewChantEvent struct {
+	UserId         string `json:"userId"`
+	SourceIp       string `json:"sourceIp"`
+	TargetUserId   string `json:"targetUserId"`
+	PhotoId        string `json:"photoId"`
+	OriginPhotoId  string `json:"originPhotoId"`
+	Source         string `json:"source"`
+	ViewTimeMillis int64  `json:"viewTimeMillis"`
+	ViewAt         int64  `json:"viewAt"`
+	UnixTime       int64  `json:"unixTime"`
+	EventType      string `json:"eventType"`
 }
 
-func (event UserOpenChantEvent) String() string {
+func (event UserViewChantEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserOpenChantEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, openChatCount int, openChatAt, openChatTimeMillis int64) *UserOpenChantEvent {
-	return &UserOpenChantEvent{
-		UserId:             userId,
-		SourceIp:           sourceIp,
-		TargetUserId:       targetUserId,
-		PhotoId:            photoId,
-		OriginPhotoId:      originPhotoId,
-		Source:             source,
-		OpenChatCount:      openChatCount,
-		OpenChatTimeMillis: openChatTimeMillis,
-		OpenChatAt:         openChatAt,
-		UnixTime:           UnixTimeInMillis(),
-		EventType:          "ACTION_USER_OPEN_CHAT",
+func NewUserViewChantEvent(userId, photoId, originPhotoId, targetUserId, source, sourceIp string, viewAt, viewTimeMillis int64) *UserViewChantEvent {
+	return &UserViewChantEvent{
+		UserId:         userId,
+		SourceIp:       sourceIp,
+		TargetUserId:   targetUserId,
+		PhotoId:        photoId,
+		OriginPhotoId:  originPhotoId,
+		Source:         source,
+		ViewTimeMillis: viewTimeMillis,
+		ViewAt:         viewAt,
+		UnixTime:       UnixTimeInMillis(),
+		EventType:      "ACTION_USER_VIEW_CHAT",
 	}
 }
 

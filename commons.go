@@ -101,13 +101,22 @@ const (
 	BlockActionType    = "BLOCK"
 	UnlikeActionType   = "UNLIKE"
 	MessageActionType  = "MESSAGE"
-	OpenChatActionType = "OPEN_CHAT"
+	ViewChatActionType = "VIEW_CHAT"
 
 	UserActiveStatus = "ACTIVE"
 	UserHiddenStatus = "HIDDEN"
 
 	UserCleanReportStatus = "CLEAN"
 	UserTakePartInReport  = "TAKE_PART_IN_REPORT"
+
+	FeedNameNewFaces        = "new_faces"
+	FeedNameWhoLikedMe      = "who_liked_me"
+	FeedNameMatches         = "matches"
+	FeedNameMessages        = "messages"
+	FeedNameMessagesInbox   = "messages_inbox"
+	FeedNameMessagesStarred = "messages_starred"
+	FeedNameMessagesSent    = "messages_sent"
+	FeedNameChat            = "chat"
 )
 
 var MinimalAndroidBuildNum = 108
@@ -164,16 +173,15 @@ func init() {
 	ResolutionValues["1242x1656_width"] = 1125
 	ResolutionValues["1242x1656_height"] = 1656
 
-
 	FeedNames = make(map[string]bool)
-	FeedNames["new_faces"] = true
-	FeedNames["who_liked_me"] = true
-	FeedNames["matches"] = true
-	FeedNames["messages"] = true
-	FeedNames["messages_inbox"] = true
-	FeedNames["messages_starred"] = true
-	FeedNames["messages_sent"] = true
-	FeedNames["chat"] = true
+	FeedNames[FeedNameNewFaces] = true
+	FeedNames[FeedNameWhoLikedMe] = true
+	FeedNames[FeedNameMatches] = true
+	FeedNames[FeedNameMessages] = true
+	FeedNames[FeedNameMessagesInbox] = true
+	FeedNames[FeedNameMessagesStarred] = true
+	FeedNames[FeedNameMessagesSent] = true
+	FeedNames[FeedNameChat] = true
 
 	ActionNames = make(map[string]bool)
 	ActionNames[LikeActionType] = true
@@ -181,5 +189,5 @@ func init() {
 	ActionNames[BlockActionType] = true
 	ActionNames[UnlikeActionType] = true
 	ActionNames[MessageActionType] = true
-	ActionNames[OpenChatActionType] = true
+	ActionNames[ViewChatActionType] = true
 }
