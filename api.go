@@ -1,6 +1,9 @@
 package commons
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/aws/aws-lambda-go/events"
+)
 
 type BaseResponse struct {
 	ErrorCode    string `json:"errorCode,omitempty"`
@@ -151,4 +154,20 @@ func (resp InternalGetMessagesResp) String() string {
 type Message struct {
 	WasYouSender bool   `json:"wasYouSender"`
 	Text         string `json:"text"`
+}
+
+func NewServiceResponse(body string) events.ALBTargetGroupResponse {
+	return events.ALBTargetGroupResponse{
+		StatusCode:        200,
+		StatusDescription: "HTTP OK",
+		Headers:           map[string]string{"Content-Type": "application/json"},
+		Body:              body}
+}
+
+func NewWrongHttpMethodServiceResponse() events.ALBTargetGroupResponse {
+	return events.ALBTargetGroupResponse{
+		StatusCode:        400,
+		StatusDescription: "Wrong HTTP method used",
+		Headers:           map[string]string{"Content-Type": "application/json"},
+		Body:              "{}"}
 }
