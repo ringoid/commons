@@ -297,6 +297,32 @@ func NewGetOwnPhotosEvent(userId, sourceIp string, ownPhotoNum int) *GetOwnPhoto
 	}
 }
 
+type PhotoResizeEvent struct {
+	UserId            string `json:"userId"`
+	PhotoId           string `json:"photoId"`
+	ResizedPhotoId    string `json:"resizedPhotoId"`
+	ResizedResolution string `json:"resizedResolution"`
+	ResizedPhotoLink  string `json:"resizedPhotoLink"`
+	UnixTime          int64  `json:"unixTime"`
+	EventType         string `json:"eventType"`
+}
+
+func (event PhotoResizeEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewPhotoResizeEvent(userId, photoId, resizedPhotoId, resizedResolution, resizedPhotoLink string) *PhotoResizeEvent {
+	return &PhotoResizeEvent{
+		UserId:            userId,
+		PhotoId:           photoId,
+		ResizedPhotoId:    resizedPhotoId,
+		ResizedResolution: resizedResolution,
+		ResizedPhotoLink:  resizedPhotoLink,
+		UnixTime:          UnixTimeInMillis(),
+		EventType:         ResizePhotoInternalEvent,
+	}
+}
+
 //Internal events in kinesis stream
 const (
 	LikePhotoInternalEvent = "INTERNAL_PHOTO_LIKE_EVENT"
@@ -306,6 +332,7 @@ const (
 
 	DeleteUserConversationInternalEvent = "INTERNAL_DELETE_USER_CONVERSATION_EVENT"
 	HideUserPhotoInternalEvent          = "INTERNAL_HIDE_PHOTO_EVENT"
+	ResizePhotoInternalEvent            = "INTERNAL_RESIZE_PHOTO_EVENT"
 )
 
 type BaseInternalEvent struct {

@@ -127,7 +127,7 @@ var ResolutionValues map[string]int
 var BiggestDefaultPhotoResolution = "1440x1920" //currently use if client ask not existing resolution
 
 const DefaultJPEGQuality = 80
-const DefaultMaxPhotoSize = 20000000 //20 Mb
+const DefaultMaxPhotoSize = 10000000 //10 Mb
 
 var FeedNames map[string]bool
 var ActionNames map[string]bool
