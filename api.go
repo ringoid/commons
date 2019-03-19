@@ -50,6 +50,7 @@ type InternalGetNewFacesReq struct {
 	UserId         string `json:"userId"`
 	Limit          int    `json:"limit"`
 	LastActionTime int64  `json:"requestedLastActionTime"`
+	Resolution     string `json:"resolution"`
 }
 
 func (req InternalGetNewFacesReq) String() string {
@@ -57,13 +58,8 @@ func (req InternalGetNewFacesReq) String() string {
 }
 
 type InternalGetNewFacesResp struct {
-	NewFaces       []InternalNewFace `json:"newFaces"`
-	LastActionTime int64             `json:"lastActionTime"`
-}
-
-type InternalNewFace struct {
-	UserId   string   `json:"userId"`
-	PhotoIds []string `json:"photoIds"`
+	NewFaces       []InternalProfiles `json:"newFaces"`
+	LastActionTime int64              `json:"lastActionTime"`
 }
 
 func (resp InternalGetNewFacesResp) String() string {
@@ -75,6 +71,7 @@ type InternalLMMReq struct {
 	UserId                  string `json:"userId"`
 	RequestNewPart          bool   `json:"requestNewPart"`
 	RequestedLastActionTime int64  `json:"requestedLastActionTime"`
+	Resolution              string `json:"resolution"`
 }
 
 func (req InternalLMMReq) String() string {
@@ -87,12 +84,29 @@ type InternalLMMResp struct {
 }
 
 type InternalProfiles struct {
-	UserId   string    `json:"userId"`
-	PhotoIds []string  `json:"photoIds"`
-	Messages []Message `json:"messages"`
+	UserId   string          `json:"userId"`
+	Photos   []InternalPhoto `json:"photos"`
+	Messages []Message       `json:"messages"`
 }
 
 func (resp InternalLMMResp) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
+
+//
+//private String originPhotoId;
+//private String resizedPhotoId;
+//private String link;
+//private String resolution;
+
+type InternalPhoto struct {
+	OriginPhotoId  string `json:"originPhotoId"`
+	ResizedPhotoId string `json:"resizedPhotoId"`
+	Link           string `json:"link"`
+	Resolution     string `json:"resolution"`
+}
+
+func (resp InternalPhoto) String() string {
 	return fmt.Sprintf("%#v", resp)
 }
 
