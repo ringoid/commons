@@ -29,6 +29,7 @@ const (
 	SessionTokenColumnName = "session_token"
 	SexColumnName          = "sex"
 
+	ReferralIdColumnName          = "referral_id"
 	YearOfBirthColumnName         = "year_of_birth"
 	ProfileCreatedAt              = "profile_created_at"
 	CustomerIdColumnName          = "customer_id"

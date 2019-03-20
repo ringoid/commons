@@ -65,6 +65,7 @@ type UserProfileCreatedEvent struct {
 	SourceIp    string `json:"sourceIp"`
 	Sex         string `json:"sex"`
 	YearOfBirth int    `json:"yearOfBirth"`
+	ReferralId  string `json:"referralId"`
 	UnixTime    int64  `json:"unixTime"`
 	EventType   string `json:"eventType"`
 }
@@ -73,12 +74,13 @@ func (event UserProfileCreatedEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserProfileCreatedEvent(userId, sex, sourceIp string, yearOfBirth int) *UserProfileCreatedEvent {
+func NewUserProfileCreatedEvent(userId, sex, sourceIp, referralId string, yearOfBirth int) *UserProfileCreatedEvent {
 	return &UserProfileCreatedEvent{
 		UserId:      userId,
 		SourceIp:    sourceIp,
 		Sex:         sex,
 		YearOfBirth: yearOfBirth,
+		ReferralId:  referralId,
 		UnixTime:    UnixTimeInMillis(),
 		EventType:   "AUTH_USER_PROFILE_CREATED",
 	}
