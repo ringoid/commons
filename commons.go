@@ -30,6 +30,7 @@ const (
 	SexColumnName          = "sex"
 
 	ReferralIdColumnName          = "referral_id"
+	PrivateKeyColumnName          = "private_key"
 	YearOfBirthColumnName         = "year_of_birth"
 	ProfileCreatedAt              = "profile_created_at"
 	CustomerIdColumnName          = "customer_id"
@@ -133,6 +134,8 @@ const DefaultMaxPhotoSize = 10000000 //10 Mb
 var FeedNames map[string]bool
 var ActionNames map[string]bool
 
+var ReferralCodes map[string]bool
+
 func init() {
 	AllowedPhotoResolution = make(map[string]bool)
 	AllowedPhotoResolution["480x640"] = true
@@ -191,4 +194,8 @@ func init() {
 	ActionNames[UnlikeActionType] = true
 	ActionNames[MessageActionType] = true
 	ActionNames[ViewChatActionType] = true
+
+	//have to be in lowercase
+	ReferralCodes = make(map[string]bool)
+	ReferralCodes["admin"] = true
 }

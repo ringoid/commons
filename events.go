@@ -66,6 +66,7 @@ type UserProfileCreatedEvent struct {
 	Sex         string `json:"sex"`
 	YearOfBirth int    `json:"yearOfBirth"`
 	ReferralId  string `json:"referralId"`
+	PrivateKey  string `json:"privateKey"`
 	UnixTime    int64  `json:"unixTime"`
 	EventType   string `json:"eventType"`
 }
@@ -74,15 +75,38 @@ func (event UserProfileCreatedEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserProfileCreatedEvent(userId, sex, sourceIp, referralId string, yearOfBirth int) *UserProfileCreatedEvent {
+func NewUserProfileCreatedEvent(userId, sex, sourceIp, referralId, privateKey string, yearOfBirth int) *UserProfileCreatedEvent {
 	return &UserProfileCreatedEvent{
 		UserId:      userId,
 		SourceIp:    sourceIp,
 		Sex:         sex,
 		YearOfBirth: yearOfBirth,
 		ReferralId:  referralId,
+		PrivateKey:  privateKey,
 		UnixTime:    UnixTimeInMillis(),
 		EventType:   "AUTH_USER_PROFILE_CREATED",
+	}
+}
+
+type UserClaimReferralCodeEvent struct {
+	UserId     string `json:"userId"`
+	SourceIp   string `json:"sourceIp"`
+	ReferralId string `json:"referralId"`
+	UnixTime   int64  `json:"unixTime"`
+	EventType  string `json:"eventType"`
+}
+
+func (event UserClaimReferralCodeEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserClaimReferralCodeEvent(userId, sourceIp, referralId string) *UserClaimReferralCodeEvent {
+	return &UserClaimReferralCodeEvent{
+		UserId:     userId,
+		SourceIp:   sourceIp,
+		ReferralId: referralId,
+		UnixTime:   UnixTimeInMillis(),
+		EventType:  "AUTH_USER_CLAIM_REFERRAL_CODE",
 	}
 }
 
