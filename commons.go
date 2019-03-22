@@ -81,7 +81,7 @@ const (
 	MessagesTextColumnName           = "message_text"
 
 	InternalServerError           = `{"errorCode":"InternalServerError","errorMessage":"Internal Server Error"}`
-	WrongRequestParamsClientError = `{"errorCode":"WrongParamsClientError","errorMessage":"Wrong request params"}`
+	WrongRequestParamsClientError = `{"errorCode":"WrongRequestParamsClientError","errorMessage":"Wrong request params"}`
 	PhoneNumberClientError        = `{"errorCode":"PhoneNumberClientError","errorMessage":"Phone number is invalid"}`
 	CountryCallingCodeClientError = `{"errorCode":"CountryCallingCodeClientError","errorMessage":"Country code is invalid"}`
 
@@ -122,7 +122,7 @@ const (
 )
 
 var MinimalAndroidBuildNum = 108
-var MinimaliOSBuildNum = 24
+var MinimaliOSBuildNum = 26
 
 var AllowedPhotoResolution map[string]bool
 var ResolutionValues map[string]int
