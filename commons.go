@@ -121,7 +121,7 @@ const (
 	FeedNameChat            = "chat"
 )
 
-var MinimalAndroidBuildNum = 108
+var MinimalAndroidBuildNum = 129
 var MinimaliOSBuildNum = 26
 
 var AllowedPhotoResolution map[string]bool
