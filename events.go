@@ -694,3 +694,27 @@ func NewDeleteUserConversationEvent(userId, targetUserId string) *DeleteUserConv
 		EventType:    DeleteUserConversationInternalEvent,
 	}
 }
+
+type DeviceTokenRegisteredEvent struct {
+	UserId      string `json:"userId"`
+	DeviceToken string `json:"deviceToken"`
+	IsItAndroid bool   `json:"isItAndroid"`
+	SourceIp    string `json:"sourceIp"`
+	UnixTime    int64  `json:"unixTime"`
+	EventType   string `json:"eventType"`
+}
+
+func (event DeviceTokenRegisteredEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewDeviceTokenRegisteredEvent(userId, deviceId, sourceIp string, isItAndroid bool) *DeviceTokenRegisteredEvent {
+	return &DeviceTokenRegisteredEvent{
+		UserId:      userId,
+		DeviceToken: deviceId,
+		IsItAndroid: isItAndroid,
+		SourceIp:    sourceIp,
+		UnixTime:    UnixTimeInMillis(),
+		EventType:   "PUSH_REGISTER_DEVICE_TOKEN",
+	}
+}

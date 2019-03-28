@@ -80,6 +80,10 @@ const (
 	MessagesSenderIdColumnName       = "sender_id"
 	MessagesTextColumnName           = "message_text"
 
+	DeviceTokenColumnName         = "device_token"
+	PlatformEndpointArnColumnName = "platform_arn"
+	OSColumnName                  = "os"
+
 	InternalServerError           = `{"errorCode":"InternalServerError","errorMessage":"Internal Server Error"}`
 	WrongRequestParamsClientError = `{"errorCode":"WrongRequestParamsClientError","errorMessage":"Wrong request params"}`
 	PhoneNumberClientError        = `{"errorCode":"PhoneNumberClientError","errorMessage":"Phone number is invalid"}`
@@ -119,6 +123,9 @@ const (
 	FeedNameMessagesStarred = "messages_starred"
 	FeedNameMessagesSent    = "messages_sent"
 	FeedNameChat            = "chat"
+
+	AndroidOperationalSystemName = "android"
+	IOSOperationalSystemName     = "ios"
 )
 
 var MinimalAndroidBuildNum = 129
@@ -198,4 +205,8 @@ func init() {
 	//have to be in lowercase
 	ReferralCodes = make(map[string]bool)
 	ReferralCodes["admin"] = true
+	ReferralCodes["mikhail"] = true
+	ReferralCodes["kirill"] = true
+	ReferralCodes["victor"] = true
+	ReferralCodes["maxim"] = true
 }
