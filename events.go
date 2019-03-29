@@ -6,7 +6,6 @@ import (
 
 type UserAcceptTermsEvent struct {
 	UserId                     string `json:"userId"`
-	Locale                     string `json:"locale"`
 	SourceIp                   string `json:"sourceIp"`
 	UnixTime                   int64  `json:"unixTime"`
 	EventType                  string `json:"eventType"`
@@ -24,12 +23,11 @@ func (event UserAcceptTermsEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserAcceptTermsEvent(userId, customerId, locale, sourceIp, deviceModel, osVersion string,
+func NewUserAcceptTermsEvent(userId, customerId, sourceIp, deviceModel, osVersion string,
 	dateTimeLegalAge, dateTimePrivacyNotes, dateTimeTermsAndConditions int64, isItAndroid bool) *UserAcceptTermsEvent {
 	if isItAndroid {
 		return &UserAcceptTermsEvent{
 			UserId: userId,
-			Locale: locale,
 			//gdpr?
 			SourceIp:   sourceIp,
 			CustomerId: customerId,
@@ -45,7 +43,6 @@ func NewUserAcceptTermsEvent(userId, customerId, locale, sourceIp, deviceModel, 
 	}
 	return &UserAcceptTermsEvent{
 		UserId: userId,
-		Locale: locale,
 		//gdpr?
 		SourceIp:   sourceIp,
 		CustomerId: customerId,
@@ -111,33 +108,39 @@ func NewUserClaimReferralCodeEvent(userId, sourceIp, referralId string) *UserCla
 }
 
 type UserSettingsUpdatedEvent struct {
-	UserId              string `json:"userId"`
-	SourceIp            string `json:"sourceIp"`
-	SafeDistanceInMeter int    `json:"safeDistanceInMeter"` // 0 (default for men) || 10 (default for women)
-	PushMessages        bool   `json:"pushMessages"`        // true (default for men) || false (default for women)
-	PushMatches         bool   `json:"pushMatches"`         // true (default)
-	PushLikes           string `json:"pushLikes"`           //EVERY (default for men) || 10_NEW (default for women) || 100_NEW
-	UnixTime            int64  `json:"unixTime"`
-	EventType           string `json:"eventType"`
+	UserId             string `json:"userId"`
+	SourceIp           string `json:"sourceIp"`
+	Locale             string `json:"locale"`
+	WasLocaleChanged   bool   `json:"wasLocaleChanged"`
+	Push               bool   `json:"push"`
+	WasPushChanged     bool   `json:"wasPushChanged"`
+	TimeZone           int    `json:"timeZone"`
+	WasTimeZoneChanged bool   `json:"wasTimeZoneChanged"`
+	UnixTime           int64  `json:"unixTime"`
+	EventType          string `json:"eventType"`
 }
 
 func (event UserSettingsUpdatedEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserSettingsUpdatedEvent(userId, sourceIp string, safeDistanceInMeter int, pushMessages, pushMatches bool, pushLikes string, ) *UserSettingsUpdatedEvent {
+func NewUserSettingsUpdatedEvent(userId, sourceIp, locale string, wasLocaleChanged, push, wasPushChanged bool, timeZone int, wasTimeZoneChanged bool) *UserSettingsUpdatedEvent {
 	return &UserSettingsUpdatedEvent{
-		UserId:              userId,
-		SourceIp:            sourceIp,
-		SafeDistanceInMeter: safeDistanceInMeter,
-		PushMessages:        pushMessages,
-		PushMatches:         pushMatches,
-		PushLikes:           pushLikes,
-		UnixTime:            UnixTimeInMillis(),
-		EventType:           "AUTH_USER_SETTINGS_UPDATED",
+		UserId:             userId,
+		SourceIp:           sourceIp,
+		Locale:             locale,
+		WasLocaleChanged:   wasLocaleChanged,
+		Push:               push,
+		WasPushChanged:     wasPushChanged,
+		TimeZone:           timeZone,
+		WasTimeZoneChanged: wasTimeZoneChanged,
+		UnixTime:           UnixTimeInMillis(),
+		EventType:          "AUTH_USER_SETTINGS_UPDATED",
 	}
 }
 
+//DEPRECATED
+//todo:delete after 1.0.10 release
 type GetUserSettingsEvent struct {
 	UserId    string `json:"userId"`
 	SourceIp  string `json:"sourceIp"`

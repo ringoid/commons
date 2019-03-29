@@ -52,6 +52,9 @@ const (
 	CurrentAndroidBuildNum   = "current_android_buildnum"
 	CurrentiOSBuildNum       = "current_ios_buildnum"
 
+
+	PushColumnName = "push"
+	TimeZoneColumnName = "time_zone"
 	SafeDistanceInMeterColumnName = "safe_distance_in_meter"
 	PushMessagesColumnName        = "push_messages"
 	PushMatchesColumnName         = "push_matches"
@@ -209,4 +212,5 @@ func init() {
 	ReferralCodes["kirill"] = true
 	ReferralCodes["victor"] = true
 	ReferralCodes["maxim"] = true
+	ReferralCodes["dnipro"] = true
 }
