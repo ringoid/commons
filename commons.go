@@ -52,9 +52,8 @@ const (
 	CurrentAndroidBuildNum   = "current_android_buildnum"
 	CurrentiOSBuildNum       = "current_ios_buildnum"
 
-
-	PushColumnName = "push"
-	TimeZoneColumnName = "time_zone"
+	PushColumnName                = "push"
+	TimeZoneColumnName            = "time_zone"
 	SafeDistanceInMeterColumnName = "safe_distance_in_meter"
 	PushMessagesColumnName        = "push_messages"
 	PushMatchesColumnName         = "push_matches"
@@ -144,8 +143,6 @@ const DefaultMaxPhotoSize = 10000000 //10 Mb
 var FeedNames map[string]bool
 var ActionNames map[string]bool
 
-var ReferralCodes map[string]bool
-
 func init() {
 	AllowedPhotoResolution = make(map[string]bool)
 	AllowedPhotoResolution["480x640"] = true
@@ -205,12 +202,4 @@ func init() {
 	ActionNames[MessageActionType] = true
 	ActionNames[ViewChatActionType] = true
 
-	//have to be in lowercase
-	ReferralCodes = make(map[string]bool)
-	ReferralCodes["admin"] = true
-	ReferralCodes["mikhail"] = true
-	ReferralCodes["kirill"] = true
-	ReferralCodes["victor"] = true
-	ReferralCodes["maxim"] = true
-	ReferralCodes["dnipro"] = true
 }
