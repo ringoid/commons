@@ -721,3 +721,23 @@ func NewDeviceTokenRegisteredEvent(userId, deviceId, sourceIp string, isItAndroi
 		EventType:   "PUSH_REGISTER_DEVICE_TOKEN",
 	}
 }
+
+type PushWasSentToUser struct {
+	UserId    string `json:"userId"`
+	PushType  string `json:"pushType"`
+	UnixTime  int64  `json:"unixTime"`
+	EventType string `json:"eventType"`
+}
+
+func (event PushWasSentToUser) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewPushWasSentToUser(userId, pushType string) *PushWasSentToUser {
+	return &PushWasSentToUser{
+		UserId:    userId,
+		PushType:  pushType,
+		UnixTime:  UnixTimeInMillis(),
+		EventType: "PUSH_WAS_SENT",
+	}
+}

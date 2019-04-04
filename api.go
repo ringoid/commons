@@ -185,3 +185,44 @@ func NewWrongHttpMethodServiceResponse() events.ALBTargetGroupResponse {
 		Headers:           map[string]string{"Content-Type": "application/json"},
 		Body:              "{}"}
 }
+
+
+type PushRequest struct {
+	Skip                int64 `json:"skip"`
+	Limit               int64 `json:"limit"`
+	MaxPeriod           int64 `json:"maxPeriod"`
+	OfflinePeriod       int64 `json:"offlinePeriod"`
+	MinProfilesForMen   int64 `json:"minForMen"`
+	MinProfilesForWomen int64 `json:"minForWomen"`
+	MinH                int64 `json:"minH"`
+	MaxH                int64 `json:"maxH"`
+}
+
+func (resp PushRequest) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
+
+
+type PushResponse struct {
+	Users       []PushObject `json:"users"`
+	ResultCount int64        `json:"resultCount"`
+}
+
+func (resp PushResponse) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
+
+type PushObject struct {
+	UserId            string `json:"userId"`
+	Sex               string `json:"sex"`
+	Locale            string `json:"locale"`
+	LastOnlineTime    int64  `json:"lastOnlineTime"`
+	NewMessageCounter int64  `json:"newMessageCount"`
+	NewMatchCounter   int64  `json:"newMatchCount"`
+	NewLikeCounter    int64  `json:"newLikeCount"`
+	NewProfileCounter int64  `json:"newProfiles"`
+}
+
+func (resp PushObject) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
