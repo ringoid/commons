@@ -130,8 +130,8 @@ const (
 	IOSOperationalSystemName     = "ios"
 )
 
-var MinimalAndroidBuildNum = 129
-var MinimaliOSBuildNum = 26
+var MinimalAndroidBuildNum = 138
+var MinimaliOSBuildNum = 40
 
 var AllowedPhotoResolution map[string]bool
 var ResolutionValues map[string]int
