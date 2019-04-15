@@ -110,6 +110,7 @@ const (
 	UnlikeActionType   = "UNLIKE"
 	MessageActionType  = "MESSAGE"
 	ViewChatActionType = "VIEW_CHAT"
+	LocationActionType = "LOCATION"
 
 	UserActiveStatus = "ACTIVE"
 	UserHiddenStatus = "HIDDEN"
@@ -201,5 +202,6 @@ func init() {
 	ActionNames[UnlikeActionType] = true
 	ActionNames[MessageActionType] = true
 	ActionNames[ViewChatActionType] = true
+	ActionNames[LocationActionType] = true
 
 }

@@ -598,6 +598,32 @@ func NewUserViewChantEvent(userId, photoId, originPhotoId, targetUserId, source,
 	}
 }
 
+type UserChangeLocationEvent struct {
+	UserId                string  `json:"userId"`
+	SourceIp              string  `json:"sourceIp"`
+	Lat                   float64 `json:"lat"`
+	Lon                   float64 `json:"lon"`
+	UpdatedLocationTimeAt int64   `json:"updatedLocationTimeAt"`
+	UnixTime              int64   `json:"unixTime"`
+	EventType             string  `json:"eventType"`
+}
+
+func (event UserChangeLocationEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserChangeLocationEvent(userId, sourceIp string, lat, lon float64, updatedLocationTimeAt int64) *UserChangeLocationEvent {
+	return &UserChangeLocationEvent{
+		UserId:                userId,
+		SourceIp:              sourceIp,
+		Lat:                   lat,
+		Lon:                   lon,
+		UpdatedLocationTimeAt: updatedLocationTimeAt,
+		UnixTime:              UnixTimeInMillis(),
+		EventType:             "ACTION_USER_CHANGE_LOCATION",
+	}
+}
+
 //feeds service
 
 type ProfileWasReturnToNewFacesEvent struct {
