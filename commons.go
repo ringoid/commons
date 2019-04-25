@@ -182,7 +182,7 @@ func init() {
 	ResolutionValues["1125x1500_width"] = 1125
 	ResolutionValues["1125x1500_height"] = 1500
 
-	ResolutionValues["1242x1656_width"] = 1125
+	ResolutionValues["1242x1656_width"] = 1242
 	ResolutionValues["1242x1656_height"] = 1656
 
 	FeedNames = make(map[string]bool)
