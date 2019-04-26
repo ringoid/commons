@@ -30,10 +30,16 @@ func New(address, tag string) (*Logger, error) {
 	l := Logger{}
 	l.debug = log.New(os.Stdout, "DEBUG ", log.Ldate|log.Lmicroseconds|log.LUTC)
 	//l.debug = log.New(multiWriter, "DEBUG ", log.Ldate|log.Lmicroseconds|log.LUTC)
-	l.info = log.New(multiWriter, "INFO ", log.Ldate|log.Lmicroseconds|log.LUTC)
+
+	l.info = log.New(os.Stdout, "INFO ", log.Ldate|log.Lmicroseconds|log.LUTC)
+	//l.info = log.New(multiWriter, "INFO ", log.Ldate|log.Lmicroseconds|log.LUTC)
+
 	l.warn = log.New(multiWriter, "WARNING ", log.Ldate|log.Lmicroseconds|log.LUTC)
+
 	l.error = log.New(multiWriter, "ERROR ", log.Ldate|log.Lmicroseconds|log.LUTC)
+
 	l.fatal = log.New(multiWriter, "FATAL ", log.Ldate|log.Lmicroseconds|log.LUTC)
+
 	l.aws = log.New(multiWriter, "AWS SDK ", log.Ldate|log.Lmicroseconds|log.LUTC)
 	return &l, nil
 }
