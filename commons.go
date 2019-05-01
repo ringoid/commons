@@ -126,6 +126,9 @@ const (
 	FeedNameMessagesStarred = "messages_starred"
 	FeedNameMessagesSent    = "messages_sent"
 	FeedNameChat            = "chat"
+	FeedNameHellos          = "hellos"
+	FeedNameInbox           = "inbox"
+	FeedNameSent            = "sent"
 
 	AndroidOperationalSystemName = "android"
 	IOSOperationalSystemName     = "ios"
@@ -194,6 +197,9 @@ func init() {
 	FeedNames[FeedNameMessagesStarred] = true
 	FeedNames[FeedNameMessagesSent] = true
 	FeedNames[FeedNameChat] = true
+	FeedNames[FeedNameHellos] = true
+	FeedNames[FeedNameInbox] = true
+	FeedNames[FeedNameSent] = true
 
 	ActionNames = make(map[string]bool)
 	ActionNames[LikeActionType] = true
