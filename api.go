@@ -78,6 +78,19 @@ func (req InternalLMMReq) String() string {
 	return fmt.Sprintf("%#v", req)
 }
 
+type InternalLMHISReq struct {
+	WarmUpRequest           bool   `json:"warmUpRequest"`
+	UserId                  string `json:"userId"`
+	RequestNewPart          bool   `json:"requestNewPart"`
+	RequestedLastActionTime int64  `json:"requestedLastActionTime"`
+	Resolution              string `json:"resolution"`
+	LMHISPart               string `json:"lmhisPart"` //hellos | inbox | sent
+}
+
+func (req InternalLMHISReq) String() string {
+	return fmt.Sprintf("%#v", req)
+}
+
 type InternalLMMResp struct {
 	Profiles       []InternalProfiles `json:"profiles"`
 	LastActionTime int64              `json:"lastActionTime"`
@@ -90,6 +103,15 @@ type InternalProfiles struct {
 }
 
 func (resp InternalLMMResp) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
+
+type InternalLMHISResp struct {
+	Profiles       []InternalProfiles `json:"profiles"`
+	LastActionTime int64              `json:"lastActionTime"`
+}
+
+func (resp InternalLMHISResp) String() string {
 	return fmt.Sprintf("%#v", resp)
 }
 
@@ -186,7 +208,6 @@ func NewWrongHttpMethodServiceResponse() events.ALBTargetGroupResponse {
 		Body:              "{}"}
 }
 
-
 type PushRequest struct {
 	Skip                int64 `json:"skip"`
 	Limit               int64 `json:"limit"`
@@ -201,7 +222,6 @@ type PushRequest struct {
 func (resp PushRequest) String() string {
 	return fmt.Sprintf("%#v", resp)
 }
-
 
 type PushResponse struct {
 	Users       []PushObject `json:"users"`
