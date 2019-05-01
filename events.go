@@ -682,6 +682,40 @@ func NewProfileWasReturnToLMMEvent(userId, sourceIp, sourceFeed string, likesNum
 	}
 }
 
+type ProfileWasReturnToLMHISEvent struct {
+	UserId             string `json:"userId"`
+	SourceIp           string `json:"sourceIp"`
+	SourceFeed         string `json:"sourceFeed"`
+	LikeYouProfilesNum int    `json:"likeYouProfilesNum"`
+	MatchProfilesNum   int    `json:"matchProfilesNum"`
+	HellosProfilesNum  int    `json:"hellosProfilesNum"`
+	InboxProfilesNum   int    `json:"inboxProfilesNum"`
+	SentProfilesNum    int    `json:"sentProfilesNum"`
+	RepeatRequestAfter int64  `json:"repeatRequestAfter"`
+	UnixTime           int64  `json:"unixTime"`
+	EventType          string `json:"eventType"`
+}
+
+func (event ProfileWasReturnToLMHISEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewProfileWasReturnToLMHISEvent(userId, sourceIp, sourceFeed string, likesNum, matchNum, hellosNum, inboxNum, sentNum int, repeatRequestAfter int64) ProfileWasReturnToLMHISEvent {
+	return ProfileWasReturnToLMHISEvent{
+		UserId:             userId,
+		SourceIp:           sourceIp,
+		SourceFeed:         sourceFeed,
+		LikeYouProfilesNum: likesNum,
+		MatchProfilesNum:   matchNum,
+		HellosProfilesNum:  hellosNum,
+		InboxProfilesNum:   inboxNum,
+		SentProfilesNum:    sentNum,
+		RepeatRequestAfter: repeatRequestAfter,
+		UnixTime:           UnixTimeInMillis(),
+		EventType:          "FEEDS_LMHIS_PROFILES",
+	}
+}
+
 type UserSendMessageEvent struct {
 	UserId       string `json:"userId"`
 	TargetUserId string `json:"targetUserId"`
