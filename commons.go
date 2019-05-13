@@ -143,6 +143,13 @@ var BiggestDefaultPhotoResolution = "1440x1920" //currently use if client ask no
 
 const DefaultJPEGQuality = 80
 const DefaultMaxPhotoSize = 10000000 //10 Mb
+const ThumbnailJPEGQuality = 30
+const ThumbnailPhotoType = "thumbnail"
+
+const ThumbnailPhotoWidth = 150
+const ThumbnailPhotoHeight = 200
+//const ThumbnailPhotoWidth = 480
+//const ThumbnailPhotoHeight = 640
 
 var FeedNames map[string]bool
 var ActionNames map[string]bool

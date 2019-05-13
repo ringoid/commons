@@ -126,6 +126,7 @@ type InternalPhoto struct {
 	ResizedPhotoId string `json:"resizedPhotoId"`
 	Link           string `json:"link"`
 	Resolution     string `json:"resolution"`
+	ThumbnailLink  string `json:"thumbnailLink"`
 }
 
 func (resp InternalPhoto) String() string {
@@ -149,8 +150,9 @@ type Profile struct {
 }
 
 type Photo struct {
-	PhotoId  string `json:"photoId"`
-	PhotoUri string `json:"photoUri"`
+	PhotoId           string `json:"photoId"`
+	PhotoUri          string `json:"photoUri"`
+	ThumbnailPhotoUri string `json:"thumbnailPhotoUri"`
 }
 
 func (resp ProfilesResp) String() string {

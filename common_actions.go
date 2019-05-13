@@ -487,6 +487,24 @@ func GetOriginPhotoId(userId, sourcePhotoId string, anlogger *Logger, lc *lambda
 	return originPhotoId, true
 }
 
+func GetThumbnailPhotoId(userId, sourcePhotoId string, anlogger *Logger, lc *lambdacontext.LambdaContext) (string, bool) {
+	anlogger.Debugf(lc, "commons_actions.go : get thumbnail photo id based on source photo id [%s] for userId [%s]", sourcePhotoId, userId)
+	if len(sourcePhotoId) == 0 {
+		anlogger.Warnf(lc, "commons_actions.go : empty source photo id for userId [%s]", userId)
+		return "", false
+	}
+	arr := strings.Split(sourcePhotoId, "_")
+	if len(arr) != 2 {
+		anlogger.Warnf(lc, "commons_actions.go : wrong source photo id [%s] for userId [%s]", sourcePhotoId, userId)
+		return "", false
+	}
+	baseId := arr[1]
+	originPhotoId := ThumbnailPhotoType + "_" + baseId
+	anlogger.Debugf(lc, "commons_actions.go : successfully get thumbnail photo id [%s] for source photo id [%s] for userId [%s]",
+		originPhotoId, sourcePhotoId, userId)
+	return originPhotoId, true
+}
+
 func GetResolutionPhotoId(userId, originPhotoId, resolution string, anlogger *Logger, lc *lambdacontext.LambdaContext) (string, bool) {
 	anlogger.Debugf(lc, "commons_actions.go : get resolution [%s] photo id based on origin photo id [%s] for userId [%s]", resolution, originPhotoId, userId)
 	if len(originPhotoId) == 0 {
