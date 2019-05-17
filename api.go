@@ -234,6 +234,13 @@ func (resp PushResponse) String() string {
 	return fmt.Sprintf("%#v", resp)
 }
 
+const (
+	OnceDayPushType    = "ONCE_A_DAY_PUSH_TYPE"
+	NewLikePushType    = "NEW_LIKE_PUSH_TYPE"
+	NewMatchPushType   = "NEW_MATCH_PUSH_TYPE"
+	NewMessagePushType = "NEW_MESSAGE_PUSH_TYPE"
+)
+
 type PushObject struct {
 	UserId            string `json:"userId"`
 	Sex               string `json:"sex"`
@@ -243,6 +250,7 @@ type PushObject struct {
 	NewMatchCounter   int64  `json:"newMatchCount"`
 	NewLikeCounter    int64  `json:"newLikeCount"`
 	NewProfileCounter int64  `json:"newProfiles"`
+	PushType          string `json:"pushType"`
 }
 
 func (resp PushObject) String() string {

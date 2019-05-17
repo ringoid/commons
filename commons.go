@@ -53,6 +53,9 @@ const (
 	CurrentiOSBuildNum       = "current_ios_buildnum"
 
 	PushColumnName                = "push"
+	PushNewLikeColumnName         = "push_new_like"
+	PushNewMatchColumnName        = "push_new_match"
+	PushNewMessageColumnName      = "push_new_message"
 	TimeZoneColumnName            = "time_zone"
 	SafeDistanceInMeterColumnName = "safe_distance_in_meter"
 	PushMessagesColumnName        = "push_messages"
@@ -148,6 +151,7 @@ const ThumbnailPhotoType = "thumbnail"
 
 const ThumbnailPhotoWidth = 150
 const ThumbnailPhotoHeight = 200
+
 //const ThumbnailPhotoWidth = 480
 //const ThumbnailPhotoHeight = 640
 

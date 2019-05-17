@@ -108,30 +108,46 @@ func NewUserClaimReferralCodeEvent(userId, sourceIp, referralId string) *UserCla
 }
 
 type UserSettingsUpdatedEvent struct {
-	UserId             string `json:"userId"`
-	SourceIp           string `json:"sourceIp"`
-	Locale             string `json:"locale"`
-	WasLocaleChanged   bool   `json:"wasLocaleChanged"`
-	Push               bool   `json:"push"`
-	WasPushChanged     bool   `json:"wasPushChanged"`
-	TimeZone           int    `json:"timeZone"`
-	WasTimeZoneChanged bool   `json:"wasTimeZoneChanged"`
-	UnixTime           int64  `json:"unixTime"`
-	EventType          string `json:"eventType"`
+	UserId                   string `json:"userId"`
+	SourceIp                 string `json:"sourceIp"`
+	Locale                   string `json:"locale"`
+	WasLocaleChanged         bool   `json:"wasLocaleChanged"`
+	Push                     bool   `json:"push"`
+	PushNewLike              bool   `json:"pushNewLike"`
+	PushNewMatch             bool   `json:"pushNewMatch"`
+	PushNewMessage           bool   `json:"pushNewMessage"`
+	WasPushChanged           bool   `json:"wasPushNewMessage"`
+	WasPushNewLikeChanged    bool   `json:"wasPushChanged"`
+	WasPushNewMatchChanged   bool   `json:"wasPushNewLikeChanged"`
+	WasPushNewMessageChanged bool   `json:"wasPushNewMatch"`
+	TimeZone                 int    `json:"timeZone"`
+	WasTimeZoneChanged       bool   `json:"wasTimeZoneChanged"`
+	UnixTime                 int64  `json:"unixTime"`
+	EventType                string `json:"eventType"`
 }
 
 func (event UserSettingsUpdatedEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserSettingsUpdatedEvent(userId, sourceIp, locale string, wasLocaleChanged, push, wasPushChanged bool, timeZone int, wasTimeZoneChanged bool) *UserSettingsUpdatedEvent {
+func NewUserSettingsUpdatedEvent(userId, sourceIp, locale string, wasLocaleChanged, push, pushNewLike, pushNewMatch, pushNewMessage,
+wasPushChanged, wasPushNewLike, wasPushNewMatch, wasPushNewMessage bool, timeZone int, wasTimeZoneChanged bool) *UserSettingsUpdatedEvent {
 	return &UserSettingsUpdatedEvent{
-		UserId:             userId,
-		SourceIp:           sourceIp,
-		Locale:             locale,
-		WasLocaleChanged:   wasLocaleChanged,
-		Push:               push,
-		WasPushChanged:     wasPushChanged,
+		UserId:           userId,
+		SourceIp:         sourceIp,
+		Locale:           locale,
+		WasLocaleChanged: wasLocaleChanged,
+
+		Push:           push,
+		PushNewLike:    pushNewLike,
+		PushNewMatch:   pushNewMatch,
+		PushNewMessage: pushNewMessage,
+
+		WasPushChanged:           wasPushChanged,
+		WasPushNewLikeChanged:    wasPushNewLike,
+		WasPushNewMatchChanged:   wasPushNewMatch,
+		WasPushNewMessageChanged: wasPushNewMessage,
+
 		TimeZone:           timeZone,
 		WasTimeZoneChanged: wasTimeZoneChanged,
 		UnixTime:           UnixTimeInMillis(),
@@ -362,6 +378,11 @@ const (
 	DeleteUserConversationInternalEvent = "INTERNAL_DELETE_USER_CONVERSATION_EVENT"
 	HideUserPhotoInternalEvent          = "INTERNAL_HIDE_PHOTO_EVENT"
 	ResizePhotoInternalEvent            = "INTERNAL_RESIZE_PHOTO_EVENT"
+
+	//for pushes
+	NewUserLikeInternalEvent    = "INTERNAL_NEW_USER_LIKE_EVENT"
+	NewUserMatchInternalEvent   = "INTERNAL_NEW_USER_MATCH_EVENT"
+	NewUserMessageInternalEvent = "INTERNAL_NEW_USER_MESSAGE_EVENT"
 )
 
 type BaseInternalEvent struct {
@@ -389,6 +410,18 @@ type HidePhotoInternalEvent struct {
 }
 
 func (event HidePhotoInternalEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+type NewUserNotificationInternalEvent struct {
+	EventType      string `json:"eventType"`
+	UserId         string `json:"userId"`
+	Sex            string `json:"sex"`
+	Locale         string `json:"locale"`
+	LastOnlineTime int64  `json:"lastOnlineTime"`
+}
+
+func (event NewUserNotificationInternalEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
