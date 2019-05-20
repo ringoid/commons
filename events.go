@@ -116,10 +116,10 @@ type UserSettingsUpdatedEvent struct {
 	PushNewLike              bool   `json:"pushNewLike"`
 	PushNewMatch             bool   `json:"pushNewMatch"`
 	PushNewMessage           bool   `json:"pushNewMessage"`
-	WasPushChanged           bool   `json:"wasPushNewMessage"`
+	WasPushChanged           bool   `json:"wasPushNewMessageChanged"`
 	WasPushNewLikeChanged    bool   `json:"wasPushChanged"`
 	WasPushNewMatchChanged   bool   `json:"wasPushNewLikeChanged"`
-	WasPushNewMessageChanged bool   `json:"wasPushNewMatch"`
+	WasPushNewMessageChanged bool   `json:"wasPushNewMatchChanged"`
 	TimeZone                 int    `json:"timeZone"`
 	WasTimeZoneChanged       bool   `json:"wasTimeZoneChanged"`
 	UnixTime                 int64  `json:"unixTime"`
