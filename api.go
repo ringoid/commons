@@ -97,9 +97,20 @@ type InternalLMMResp struct {
 }
 
 type InternalProfiles struct {
-	UserId   string          `json:"userId"`
-	Photos   []InternalPhoto `json:"photos"`
-	Messages []Message       `json:"messages"`
+	UserId         string          `json:"userId"`
+	Photos         []InternalPhoto `json:"photos"`
+	Messages       []Message       `json:"messages"`
+	LastOnlineTime int64           `json:"lastOnlineTime"`
+	LocationExist  bool            `json:"locationExist"`
+	Lat            float64         `json:"lat"`
+	Lon            float64         `json:"lon"`
+	SourceLat      float64         `json:"slat"`
+	SourceLon      float64         `json:"slon"`
+	SourceLocale   string          `json:"slocale"`
+}
+
+func (resp InternalProfiles) String() string {
+	return fmt.Sprintf("%#v", resp)
 }
 
 func (resp InternalLMMResp) String() string {
@@ -144,6 +155,9 @@ type ProfilesResp struct {
 type Profile struct {
 	UserId                      string    `json:"userId"`
 	DefaultSortingOrderPosition int       `json:"defaultSortingOrderPosition"`
+	LastOnlineText              string    `json:"lastOnlineText"`
+	LastOnlineFlag              string    `json:"lastOnlineFlag"`
+	DistanceText                string    `json:"distanceText"`
 	Unseen                      bool      `json:"notSeen"`
 	Photos                      []Photo   `json:"photos"`
 	Messages                    []Message `json:"messages"`
