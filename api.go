@@ -107,6 +107,7 @@ type InternalProfiles struct {
 	SourceLat      float64         `json:"slat"`
 	SourceLon      float64         `json:"slon"`
 	SourceLocale   string          `json:"slocale"`
+	Age            int             `json:"age"`
 }
 
 func (resp InternalProfiles) String() string {
@@ -161,6 +162,7 @@ type Profile struct {
 	Unseen                      bool      `json:"notSeen"`
 	Photos                      []Photo   `json:"photos"`
 	Messages                    []Message `json:"messages"`
+	Age                         int       `json:"age"`
 }
 
 type Photo struct {
