@@ -155,6 +155,34 @@ wasPushChanged, wasPushNewLike, wasPushNewMatch, wasPushNewMessage bool, timeZon
 	}
 }
 
+type UserProfileUpdatedEvent struct {
+	UserId    string `json:"userId"`
+	SourceIp  string `json:"sourceIp"`
+	Property  int    `json:"property"`
+	Transport int    `json:"transport"`
+	Income    int    `json:"income"`
+	Height    int    `json:"height"`
+	UnixTime  int64  `json:"unixTime"`
+	EventType string `json:"eventType"`
+}
+
+func (event UserProfileUpdatedEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserProfileUpdatedEvent(userId, sourceIp string, property, transport, income, height int) *UserProfileUpdatedEvent {
+	return &UserProfileUpdatedEvent{
+		UserId:    userId,
+		SourceIp:  sourceIp,
+		Property:  property,
+		Transport: transport,
+		Income:    income,
+		Height:    height,
+		UnixTime:  UnixTimeInMillis(),
+		EventType: "AUTH_USER_UPDATE_PROFILE",
+	}
+}
+
 //DEPRECATED
 //todo:delete after 1.0.10 release
 type GetUserSettingsEvent struct {

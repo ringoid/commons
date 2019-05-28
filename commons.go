@@ -47,6 +47,11 @@ const (
 	UserStatusColumnName          = "user_status"
 	UserReportStatusColumnName    = "user_report_status"
 
+	UserProfilePropertyColumnName  = "property"
+	UserProfileTransportColumnName = "transport"
+	UserProfileIncomeColumnName    = "income"
+	UserProfileHeightColumnName    = "height"
+
 	UpdatedTimeColumnName    = "updated_at"
 	LastOnlineTimeColumnName = "last_online_time"
 	CurrentAndroidBuildNum   = "current_android_buildnum"
