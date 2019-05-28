@@ -834,3 +834,12 @@ func NewPushWasSentToUser(userId, pushType string) *PushWasSentToUser {
 		EventType: "PUSH_WAS_SENT",
 	}
 }
+
+func NewDataPushWasSentToUser(userId, pushType string) *PushWasSentToUser {
+	return &PushWasSentToUser{
+		UserId:    userId,
+		PushType:  pushType,
+		UnixTime:  UnixTimeInMillis(),
+		EventType: "DATA_PUSH_WAS_SENT",
+	}
+}
