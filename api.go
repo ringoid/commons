@@ -108,10 +108,13 @@ type InternalProfiles struct {
 	SourceLon      float64         `json:"slon"`
 	SourceLocale   string          `json:"slocale"`
 	Age            int             `json:"age"`
+	Sex            string          `json:"sex"`
 	Property       int             `json:"property"`
 	Transport      int             `json:"transport"`
 	Income         int             `json:"income"`
 	Height         int             `json:"height"`
+	EducationLevel int             `json:"educationLevel"`
+	HairColor      int             `json:"hairColor"`
 }
 
 func (resp InternalProfiles) String() string {
@@ -161,10 +164,13 @@ type Profile struct {
 	Photos                      []Photo   `json:"photos"`
 	Messages                    []Message `json:"messages"`
 	Age                         int       `json:"age"`
+	Sex                         string    `json:"sex"`
 	Property                    int       `json:"property"`
 	Transport                   int       `json:"transport"`
 	Income                      int       `json:"income"`
 	Height                      int       `json:"height"`
+	EducationLevel              int       `json:"educationLevel"`
+	HairColor                   int       `json:"hairColor"`
 }
 
 type Photo struct {

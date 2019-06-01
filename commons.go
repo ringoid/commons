@@ -47,10 +47,12 @@ const (
 	UserStatusColumnName          = "user_status"
 	UserReportStatusColumnName    = "user_report_status"
 
-	UserProfilePropertyColumnName  = "property"
-	UserProfileTransportColumnName = "transport"
-	UserProfileIncomeColumnName    = "income"
-	UserProfileHeightColumnName    = "height"
+	UserProfilePropertyColumnName       = "property"
+	UserProfileTransportColumnName      = "transport"
+	UserProfileIncomeColumnName         = "income"
+	UserProfileHeightColumnName         = "height"
+	UserProfileEducationLevelColumnName = "edu_level"
+	UserProfileHairColorColumnName      = "hair_color"
 
 	UpdatedTimeColumnName    = "updated_at"
 	LastOnlineTimeColumnName = "last_online_time"
