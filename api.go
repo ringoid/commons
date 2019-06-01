@@ -131,12 +131,6 @@ func (resp InternalLMHISResp) String() string {
 	return fmt.Sprintf("%#v", resp)
 }
 
-//
-//private String originPhotoId;
-//private String resizedPhotoId;
-//private String link;
-//private String resolution;
-
 type InternalPhoto struct {
 	OriginPhotoId  string `json:"originPhotoId"`
 	ResizedPhotoId string `json:"resizedPhotoId"`
@@ -275,8 +269,33 @@ type PushObject struct {
 	NewLikeCounter    int64  `json:"newLikeCount"`
 	NewProfileCounter int64  `json:"newProfiles"`
 	PushType          string `json:"pushType"`
+	NewLikeEnabled    bool   `json:"newLikeEnabled"`
+	NewMatchEnabled   bool   `json:"newMatchEnabled"`
+	NewMessageEnabled bool   `json:"newMessageEnabled"`
+	OppositeUserId    string `json:"oppositeUserId"`
 }
 
 func (resp PushObject) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
+
+type InternalChatRequest struct {
+	UserId         string `json:"userId"`
+	OppositeUserId string `json:"oppositeUserId"`
+	LastActionTime int64  `json:"requestedLastActionTime"`
+	Resolution     string `json:"resolution"`
+}
+
+func (resp InternalChatRequest) String() string {
+	return fmt.Sprintf("%#v", resp)
+}
+
+type InternalChatResponse struct {
+	Profile        InternalProfiles `json:"profile"`
+	IsChatExists   bool             `json:"chatExists"`
+	LastActionTime int64            `json:"lastActionTime"`
+}
+
+func (resp InternalChatResponse) String() string {
 	return fmt.Sprintf("%#v", resp)
 }

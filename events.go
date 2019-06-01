@@ -442,11 +442,15 @@ func (event HidePhotoInternalEvent) String() string {
 }
 
 type NewUserNotificationInternalEvent struct {
-	EventType      string `json:"eventType"`
-	UserId         string `json:"userId"`
-	Sex            string `json:"sex"`
-	Locale         string `json:"locale"`
-	LastOnlineTime int64  `json:"lastOnlineTime"`
+	EventType         string `json:"eventType"`
+	UserId            string `json:"userId"`
+	Sex               string `json:"sex"`
+	Locale            string `json:"locale"`
+	LastOnlineTime    int64  `json:"lastOnlineTime"`
+	NewLikeEnabled    bool   `json:"newLikeEnabled"`
+	NewMatchEnabled   bool   `json:"newMatchEnabled"`
+	NewMessageEnabled bool   `json:"newMessageEnabled"`
+	OppositeUserId    string `json:"oppositeUserId"`
 }
 
 func (event NewUserNotificationInternalEvent) String() string {
@@ -869,5 +873,33 @@ func NewDataPushWasSentToUser(userId, pushType string) *PushWasSentToUser {
 		PushType:  pushType,
 		UnixTime:  UnixTimeInMillis(),
 		EventType: "DATA_PUSH_WAS_SENT",
+	}
+}
+
+type ChatWasReturnEvent struct {
+	UserId             string `json:"userId"`
+	SourceIp           string `json:"sourceIp"`
+	OppositeUserId     string `json:"oppositeUserId"`
+	MessageNum         int    `json:"messageNum"`
+	RepeatRequestAfter int64  `json:"repeatRequestAfter"`
+	PoolAgainAfter     int64  `json:"poolAgainAfter"`
+	UnixTime           int64  `json:"unixTime"`
+	EventType          string `json:"eventType"`
+}
+
+func (event ChatWasReturnEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewChatWasReturnEvent(userId, sourceIp, oppositeUserId string, msgNum int, repeatRequestAfter, poolAgainAfter int64) ChatWasReturnEvent {
+	return ChatWasReturnEvent{
+		UserId:             userId,
+		SourceIp:           sourceIp,
+		OppositeUserId:     oppositeUserId,
+		MessageNum:         msgNum,
+		RepeatRequestAfter: repeatRequestAfter,
+		PoolAgainAfter:     poolAgainAfter,
+		UnixTime:           UnixTimeInMillis(),
+		EventType:          "FEEDS_CHAT_WAS_RETURNED",
 	}
 }
