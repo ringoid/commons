@@ -115,6 +115,7 @@ type InternalProfiles struct {
 	Height         int             `json:"height"`
 	EducationLevel int             `json:"educationLevel"`
 	HairColor      int             `json:"hairColor"`
+	Children       int             `json:"children"`
 }
 
 func (resp InternalProfiles) String() string {
@@ -171,6 +172,7 @@ type Profile struct {
 	Height                      int       `json:"height"`
 	EducationLevel              int       `json:"educationLevel"`
 	HairColor                   int       `json:"hairColor"`
+	Children                    int       `json:"children"`
 }
 
 type Photo struct {

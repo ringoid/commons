@@ -164,6 +164,7 @@ type UserProfileUpdatedEvent struct {
 	Height         int    `json:"height"`
 	EducationLevel int    `json:"educationLevel"`
 	HairColor      int    `json:"hairColor"`
+	Children       int    `json:"children"`
 	UnixTime       int64  `json:"unixTime"`
 	EventType      string `json:"eventType"`
 }
@@ -172,7 +173,7 @@ func (event UserProfileUpdatedEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserProfileUpdatedEvent(userId, sourceIp string, property, transport, income, height, edu, hair int) *UserProfileUpdatedEvent {
+func NewUserProfileUpdatedEvent(userId, sourceIp string, property, transport, income, height, edu, hair, children int) *UserProfileUpdatedEvent {
 	return &UserProfileUpdatedEvent{
 		UserId:         userId,
 		SourceIp:       sourceIp,
@@ -182,6 +183,7 @@ func NewUserProfileUpdatedEvent(userId, sourceIp string, property, transport, in
 		Height:         height,
 		EducationLevel: edu,
 		HairColor:      hair,
+		Children:       children,
 		UnixTime:       UnixTimeInMillis(),
 		EventType:      "AUTH_USER_UPDATE_PROFILE",
 	}

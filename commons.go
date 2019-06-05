@@ -53,6 +53,7 @@ const (
 	UserProfileHeightColumnName         = "height"
 	UserProfileEducationLevelColumnName = "edu_level"
 	UserProfileHairColorColumnName      = "hair_color"
+	UserProfileChildrenColumnName       = "children"
 
 	UpdatedTimeColumnName    = "updated_at"
 	LastOnlineTimeColumnName = "last_online_time"
