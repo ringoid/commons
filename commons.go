@@ -54,6 +54,16 @@ const (
 	UserProfileEducationLevelColumnName = "edu_level"
 	UserProfileHairColorColumnName      = "hair_color"
 	UserProfileChildrenColumnName       = "children"
+	UserProfileNameColumnName           = "name"
+	UserProfileJobTitleColumnName       = "job_title"
+	UserProfileCompanyColumnName        = "company"
+	UserProfileEducationTextColumnName  = "education_text"
+	UserProfileAboutColumnName          = "about"
+	UserProfileInstagramColumnName      = "instagram"
+	UserProfileTikTokColumnName         = "tiktok"
+	UserProfileWhereILiveColumnName         = "where_i_live"
+	UserProfileWhereIFromColumnName         = "where_i_from"
+	
 
 	UpdatedTimeColumnName    = "updated_at"
 	LastOnlineTimeColumnName = "last_online_time"
@@ -111,6 +121,9 @@ const (
 	InvalidAccessTokenClientError = `{"errorCode":"InvalidAccessTokenClientError","errorMessage":"Invalid access token"}`
 
 	TooOldAppVersionClientError = `{"errorCode":"TooOldAppVersionClientError","errorMessage":"Too old app version"}`
+
+	EmailNotVerifiedClientError         = `{"errorCode":"EmailNotVerifiedClientError","errorMessage":"Email not verified"}`
+	EmailInvalidVerificationClientError = `{"errorCode":"EmailInvalidVerificationClientError","errorMessage":"Email invalid verification"}`
 
 	Twilio = "Twilio"
 	Nexmo  = "Nexmo"
