@@ -46,6 +46,7 @@ const (
 	CurrentActiveDeviceIsAndroid  = "current_device_is_android"
 	UserStatusColumnName          = "user_status"
 	UserReportStatusColumnName    = "user_report_status"
+	UserEmailColumnName           = "email"
 
 	UserProfilePropertyColumnName       = "property"
 	UserProfileTransportColumnName      = "transport"
@@ -61,9 +62,23 @@ const (
 	UserProfileAboutColumnName          = "about"
 	UserProfileInstagramColumnName      = "instagram"
 	UserProfileTikTokColumnName         = "tiktok"
-	UserProfileWhereILiveColumnName         = "where_i_live"
-	UserProfileWhereIFromColumnName         = "where_i_from"
-	
+	UserProfileWhereILiveColumnName     = "where_i_live"
+	UserProfileWhereIFromColumnName     = "where_i_from"
+
+	EmailAuthMailColumnName            = "email"
+	EmailAuthStatusColumnName          = "auth_status"
+	EmailAuthSessionIdColumnName       = "auth_session_id"
+	EmailAuthUserIdColumnName          = "user_id"
+	EmailAuthStatusStartedValue        = "AUTH_STARTED"
+	EmailAuthStatusAccountCreatedValue = "ACCOUNT_CREATED"
+
+	AuthConfirmMailColumnName      = "email"
+	AuthConfirmPinColumnName       = "pin_code"
+	AuthConfirmSessionIdColumnName = "auth_session_id"
+	AuthConfirmUserIdColumnName    = "user_id"
+	AuthConfirmStatusColumnName    = "confirmation_status"
+	AuthConfirmStatusStartedValue  = "CONFIRMATION_STARTED"
+	AuthConfirmStatusCompleteValue = "CONFIRMATION_COMPLETE"
 
 	UpdatedTimeColumnName    = "updated_at"
 	LastOnlineTimeColumnName = "last_online_time"
@@ -122,8 +137,13 @@ const (
 
 	TooOldAppVersionClientError = `{"errorCode":"TooOldAppVersionClientError","errorMessage":"Too old app version"}`
 
-	EmailNotVerifiedClientError         = `{"errorCode":"EmailNotVerifiedClientError","errorMessage":"Email not verified"}`
+	EmailNotVerifiedClientError             = `{"errorCode":"EmailNotVerifiedClientError","errorMessage":"Email not verified"}`
+	ErrorCodeEmailNotVerifiedClientError    = "EmailNotVerifiedClientError"
+	ErrorMessageEmailNotVerifiedClientError = "Email not verified"
+
+	EmailConcurrentUsageClientError     = `{"errorCode":"EmailConcurrentUsageClientError","errorMessage":"Email concurrent usage error"}`
 	EmailInvalidVerificationClientError = `{"errorCode":"EmailInvalidVerificationClientError","errorMessage":"Email invalid verification"}`
+	WrongPinCodeClientError             = `{"errorCode":"WrongPinCodeClientError","errorMessage":"Wrong pin code"}`
 
 	Twilio = "Twilio"
 	Nexmo  = "Nexmo"

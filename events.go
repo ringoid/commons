@@ -59,6 +59,7 @@ func NewUserAcceptTermsEvent(userId, customerId, sourceIp, deviceModel, osVersio
 
 type UserProfileCreatedEvent struct {
 	UserId      string `json:"userId"`
+	Email       string `json:"email"`
 	SourceIp    string `json:"sourceIp"`
 	Sex         string `json:"sex"`
 	YearOfBirth int    `json:"yearOfBirth"`
@@ -72,9 +73,10 @@ func (event UserProfileCreatedEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewUserProfileCreatedEvent(userId, sex, sourceIp, referralId, privateKey string, yearOfBirth int) *UserProfileCreatedEvent {
+func NewUserProfileCreatedEvent(userId, email, sex, sourceIp, referralId, privateKey string, yearOfBirth int) *UserProfileCreatedEvent {
 	return &UserProfileCreatedEvent{
 		UserId:      userId,
+		Email:       email,
 		SourceIp:    sourceIp,
 		Sex:         sex,
 		YearOfBirth: yearOfBirth,

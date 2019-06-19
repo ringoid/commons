@@ -267,6 +267,29 @@ func UpdateLastOnlineTimeAndBuildNum(userId, userProfileTableName string, buildN
 	return true, ""
 }
 
+//return ok and error string
+func CheckAppVersion(appVersion int, isItAndroid bool, anlogger *Logger, lc *lambdacontext.LambdaContext) (bool, string) {
+
+	anlogger.Debugf(lc, "commons_actions.go : check app version with app version [%d] and isItAndroid [%v]", appVersion, isItAndroid)
+
+	switch isItAndroid {
+	case true:
+		if appVersion < MinimalAndroidBuildNum {
+			anlogger.Debugf(lc, "commons_actions.go : too old Android version [%d] when min version is [%d]", appVersion, MinimalAndroidBuildNum)
+			return false, TooOldAppVersionClientError
+		}
+	default:
+		if appVersion < MinimaliOSBuildNum {
+			anlogger.Debugf(lc, "commons_actions.go : too old iOS version [%d] when min version is [%d]", appVersion, MinimaliOSBuildNum)
+			return false, TooOldAppVersionClientError
+		}
+	}
+
+	anlogger.Debugf(lc, "commons_actions.go : successfully check app version with app version [%d] and isItAndroid [%v]", appVersion, isItAndroid)
+
+	return true, ""
+}
+
 //return userId, user status, user report status, ok and error string
 func Login(appVersion int, isItAndroid bool, token, secretWord, userProfileTable, commonStreamName string, awsDbClient *dynamodb.DynamoDB, awsKinesisClient *kinesis.Kinesis,
 	anlogger *Logger, lc *lambdacontext.LambdaContext) (string, string, string, bool, string) {
