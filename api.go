@@ -234,10 +234,11 @@ func (resp InternalGetMessagesResp) String() string {
 }
 
 type Message struct {
-	WasYouSender bool   `json:"wasYouSender"`
-	Text         string `json:"text"`
-	MessageId    string `json:"msgId"`
-	MessageAt    int64  `json:"msgAt"`
+	WasYouSender    bool   `json:"wasYouSender"`
+	Text            string `json:"text"`
+	MessageId       string `json:"msgId"`
+	ClientMessageId string `json:"clientMsgId"`
+	MessageAt       int64  `json:"msgAt"`
 }
 
 func NewServiceResponse(body string) events.ALBTargetGroupResponse {
