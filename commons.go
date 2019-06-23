@@ -144,6 +144,7 @@ const (
 	EmailConcurrentUsageClientError     = `{"errorCode":"EmailConcurrentUsageClientError","errorMessage":"Email concurrent usage error"}`
 	EmailInvalidVerificationClientError = `{"errorCode":"EmailInvalidVerificationClientError","errorMessage":"Email invalid verification"}`
 	WrongPinCodeClientError             = `{"errorCode":"WrongPinCodeClientError","errorMessage":"Wrong pin code"}`
+	EmailAlreadyInUseClientError        = `{"errorCode":"EmailAlreadyInUseClientError","errorMessage":"Email already in use"}`
 
 	Twilio = "Twilio"
 	Nexmo  = "Nexmo"

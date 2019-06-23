@@ -87,6 +87,30 @@ func NewUserProfileCreatedEvent(userId, email, sex, sourceIp, referralId, privat
 	}
 }
 
+type UserChangeEmailEvent struct {
+	UserId    string `json:"userId"`
+	OldEmail  string `json:"oldEmail"`
+	NewEmail  string `json:"newEmail"`
+	SourceIp  string `json:"sourceIp"`
+	UnixTime  int64  `json:"unixTime"`
+	EventType string `json:"eventType"`
+}
+
+func (event UserChangeEmailEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserChangeEmailEvent(userId, oldEmail, newEmail, sourceIp string) *UserChangeEmailEvent {
+	return &UserChangeEmailEvent{
+		UserId:    userId,
+		OldEmail:  oldEmail,
+		NewEmail:  newEmail,
+		SourceIp:  sourceIp,
+		UnixTime:  UnixTimeInMillis(),
+		EventType: "AUTH_USER_CHANGE_EMAIL",
+	}
+}
+
 type UserClaimReferralCodeEvent struct {
 	UserId     string `json:"userId"`
 	SourceIp   string `json:"sourceIp"`
