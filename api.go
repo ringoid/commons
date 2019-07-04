@@ -45,6 +45,14 @@ func (resp InternalGetUserIdResp) String() string {
 
 //Feeds - Internal communication with Relationships service
 
+type InternalPrepareNewFacesReq struct {
+	UserId string `json:"userId"`
+}
+
+func (req InternalPrepareNewFacesReq) String() string {
+	return fmt.Sprintf("%#v", req)
+}
+
 type InternalGetNewFacesReq struct {
 	WarmUpRequest  bool   `json:"warmUpRequest"`
 	UserId         string `json:"userId"`
