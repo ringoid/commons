@@ -66,8 +66,9 @@ func (req InternalGetNewFacesReq) String() string {
 }
 
 type InternalGetNewFacesResp struct {
-	NewFaces       []InternalProfiles `json:"newFaces"`
-	LastActionTime int64              `json:"lastActionTime"`
+	NewFaces        []InternalProfiles `json:"newFaces"`
+	LastActionTime  int64              `json:"lastActionTime"`
+	HowMuchPrepared int64              `json:"howMuchPrepared"`
 }
 
 func (resp InternalGetNewFacesResp) String() string {

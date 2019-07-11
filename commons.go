@@ -177,6 +177,9 @@ const (
 
 	AndroidOperationalSystemName = "android"
 	IOSOperationalSystemName     = "ios"
+
+	PrepareLimitNum        = 120
+	NewFacesHardcodedLimit = 50
 )
 
 var MinimalAndroidBuildNum = 203
