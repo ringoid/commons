@@ -75,6 +75,21 @@ func (resp InternalGetNewFacesResp) String() string {
 	return fmt.Sprintf("%#v", resp)
 }
 
+type DiscoverRequest struct {
+	UserId         *string `json:"userId"`
+	AccessToken    *string `json:"accessToken"`
+	Resolution     *string `json:"resolution"`
+	LastActionTime *int64  `json:"lastActionTime"`
+	Limit          *int    `json:"limit"`
+	Filter         *Filter `json:"filter"`
+}
+
+type Filter struct {
+	MinAge      *int `json:"minAge"`
+	MaxAge      *int `json:"maxAge"`
+	MaxDistance *int `json:"maxDistance"`
+}
+
 type InternalLMMReq struct {
 	WarmUpRequest           bool   `json:"warmUpRequest"`
 	UserId                  string `json:"userId"`

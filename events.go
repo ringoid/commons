@@ -770,6 +770,30 @@ func NewProfileWasReturnToNewFacesEvent(userId, sourceIp string, targetIds []str
 	}
 }
 
+type ProfileWasReturnToDiscoverEvent struct {
+	UserId             string `json:"userId"`
+	SourceIp           string `json:"sourceIp"`
+	ProfilesNum        int    `json:"profilesNum"`
+	RepeatRequestAfter int64  `json:"repeatRequestAfter"`
+	UnixTime           int64  `json:"unixTime"`
+	EventType          string `json:"eventType"`
+}
+
+func (event ProfileWasReturnToDiscoverEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewProfileWasReturnToDiscoverEvent(userId, sourceIp string, size int, repeatRequestAfter int64) ProfileWasReturnToDiscoverEvent {
+	return ProfileWasReturnToDiscoverEvent{
+		UserId:             userId,
+		SourceIp:           sourceIp,
+		ProfilesNum:        size,
+		RepeatRequestAfter: repeatRequestAfter,
+		UnixTime:           UnixTimeInMillis(),
+		EventType:          "FEEDS_DISCOVER_PROFILES",
+	}
+}
+
 type ProfileWasReturnToLMMEvent struct {
 	UserId             string `json:"userId"`
 	SourceIp           string `json:"sourceIp"`
