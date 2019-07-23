@@ -824,6 +824,34 @@ func NewProfileWasReturnToLMMEvent(userId, sourceIp, sourceFeed string, likesNum
 	}
 }
 
+type ProfileWasReturnToLCEvent struct {
+	UserId             string `json:"userId"`
+	SourceIp           string `json:"sourceIp"`
+	SourceFeed         string `json:"sourceFeed"`
+	LikeYouProfilesNum int    `json:"likeYouProfilesNum"`
+	MessageProfilesNum int    `json:"messageProfilesNum"`
+	RepeatRequestAfter int64  `json:"repeatRequestAfter"`
+	UnixTime           int64  `json:"unixTime"`
+	EventType          string `json:"eventType"`
+}
+
+func (event ProfileWasReturnToLCEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewProfileWasReturnToLCEvent(userId, sourceIp, sourceFeed string, likesNum, messageNum int, repeatRequestAfter int64) ProfileWasReturnToLCEvent {
+	return ProfileWasReturnToLCEvent{
+		UserId:             userId,
+		SourceIp:           sourceIp,
+		SourceFeed:         sourceFeed,
+		LikeYouProfilesNum: likesNum,
+		MessageProfilesNum: messageNum,
+		RepeatRequestAfter: repeatRequestAfter,
+		UnixTime:           UnixTimeInMillis(),
+		EventType:          "FEEDS_LC_PROFILES",
+	}
+}
+
 type ProfileWasReturnToLMHISEvent struct {
 	UserId             string `json:"userId"`
 	SourceIp           string `json:"sourceIp"`

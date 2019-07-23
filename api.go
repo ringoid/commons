@@ -90,6 +90,24 @@ type Filter struct {
 	MaxDistance *int `json:"maxDistance"`
 }
 
+type GetLCRequest struct {
+	AccessToken    *string `json:"accessToken"`
+	Resolution     *string `json:"resolution"`
+	LastActionTime *int64  `json:"lastActionTime"`
+	Limit          *int    `json:"limit"`
+	Source         *string `json:"source"`
+	Filter         *Filter `json:"filter"`
+
+	//inner fields (set on server side)
+	UserId *string `json:"userId"`
+}
+
+type InternalGetLCResp struct {
+	Profiles       []InternalProfiles `json:"profiles"`
+	AllProfilesNum int                `json:"allProfilesNum"`
+	LastActionTime int64              `json:"lastActionTime"`
+}
+
 type InternalLMMReq struct {
 	WarmUpRequest           bool   `json:"warmUpRequest"`
 	UserId                  string `json:"userId"`
@@ -149,6 +167,7 @@ type InternalProfiles struct {
 	TikTok         string          `json:"tikTok"`
 	WhereLive      string          `json:"whereLive"`
 	WhereFrom      string          `json:"whereFrom"`
+	Unseen         bool            `json:"unseen"`
 }
 
 func (resp InternalProfiles) String() string {
