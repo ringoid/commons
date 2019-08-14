@@ -182,8 +182,8 @@ const (
 	NewFacesHardcodedLimit = 50
 )
 
-var MinimalAndroidBuildNum = 203
-var MinimaliOSBuildNum = 94
+var MinimalAndroidBuildNum = 211
+var MinimaliOSBuildNum = 134
 
 var AllowedPhotoResolution map[string]bool
 var ResolutionValues map[string]int
