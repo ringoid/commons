@@ -775,6 +775,9 @@ type ProfileWasReturnToDiscoverEvent struct {
 	SourceIp           string `json:"sourceIp"`
 	ProfilesNum        int    `json:"profilesNum"`
 	RepeatRequestAfter int64  `json:"repeatRequestAfter"`
+	FilterMinAge       int    `json:filterMinAge`
+	FilterMaxAge       int    `json:filterMaxAge`
+	FilterMaxDistance  int    `json:"filterMaxDistance"`
 	UnixTime           int64  `json:"unixTime"`
 	EventType          string `json:"eventType"`
 }
@@ -783,12 +786,15 @@ func (event ProfileWasReturnToDiscoverEvent) String() string {
 	return fmt.Sprintf("%#v", event)
 }
 
-func NewProfileWasReturnToDiscoverEvent(userId, sourceIp string, size int, repeatRequestAfter int64) ProfileWasReturnToDiscoverEvent {
+func NewProfileWasReturnToDiscoverEvent(userId, sourceIp string, size, filterMinAge, filterMaxAge, filterMaxDistance int, repeatRequestAfter int64) ProfileWasReturnToDiscoverEvent {
 	return ProfileWasReturnToDiscoverEvent{
 		UserId:             userId,
 		SourceIp:           sourceIp,
 		ProfilesNum:        size,
 		RepeatRequestAfter: repeatRequestAfter,
+		FilterMinAge:       filterMinAge,
+		FilterMaxAge:       filterMaxAge,
+		FilterMaxDistance:  filterMaxDistance,
 		UnixTime:           UnixTimeInMillis(),
 		EventType:          "FEEDS_DISCOVER_PROFILES",
 	}

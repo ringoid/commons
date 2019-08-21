@@ -16,6 +16,9 @@ const (
 	SecretWordKeyName = "secret-word-key"
 	SecretWordKeyBase = "%s/SecretWord"
 
+	MailGunApiKeyName = "api_key"
+	MailGunApiKeyBase = "%s/MailgunApiKey"
+
 	SessionGSIName = "sessionGSI"
 
 	PhoneColumnName     = "phone"
