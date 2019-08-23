@@ -67,6 +67,7 @@ const (
 	UserProfileTikTokColumnName         = "tiktok"
 	UserProfileWhereILiveColumnName     = "where_i_live"
 	UserProfileWhereIFromColumnName     = "where_i_from"
+	UserProfileStatusTextColumnName     = "status_text"
 
 	EmailAuthMailColumnName            = "email"
 	EmailAuthStatusColumnName          = "auth_status"

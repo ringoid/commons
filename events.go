@@ -201,6 +201,7 @@ type UserProfileUpdatedEvent struct {
 	TikTok         string `json:"tikTok"`
 	WhereLive      string `json:"whereLive"`
 	WhereFrom      string `json:"whereFrom"`
+	StatusText     string `json:"statusText"`
 	UnixTime       int64  `json:"unixTime"`
 }
 
@@ -209,7 +210,7 @@ func (event UserProfileUpdatedEvent) String() string {
 }
 
 func NewUserProfileUpdatedEvent(userId, sourceIp string, property, transport, income, height, edu, hair, children int,
-	name, jobTitle, company, education, about, instagram, tikTok, whereLive, whereFrom string) *UserProfileUpdatedEvent {
+	name, jobTitle, company, education, about, instagram, tikTok, whereLive, whereFrom, statusText string) *UserProfileUpdatedEvent {
 	return &UserProfileUpdatedEvent{
 		UserId:         userId,
 		SourceIp:       sourceIp,
@@ -229,6 +230,7 @@ func NewUserProfileUpdatedEvent(userId, sourceIp string, property, transport, in
 		TikTok:         tikTok,
 		WhereLive:      whereLive,
 		WhereFrom:      whereFrom,
+		StatusText:     statusText,
 		UnixTime:       UnixTimeInMillis(),
 		EventType:      "AUTH_USER_UPDATE_PROFILE",
 	}

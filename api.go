@@ -168,6 +168,7 @@ type InternalProfiles struct {
 	WhereLive      string          `json:"whereLive"`
 	WhereFrom      string          `json:"whereFrom"`
 	Unseen         bool            `json:"unseen"`
+	StatusText     string          `json:"statusText"`
 }
 
 func (resp InternalProfiles) String() string {
@@ -234,6 +235,7 @@ type Profile struct {
 	TikTok                      string    `json:"tikTok"`
 	WhereLive                   string    `json:"whereLive"`
 	WhereFrom                   string    `json:"whereFrom"`
+	StatusText                  string    `json:"statusText"`
 }
 
 type Photo struct {
