@@ -84,10 +84,55 @@ type DiscoverRequest struct {
 	Filter         *Filter `json:"filter"`
 }
 
+func (req DiscoverRequest) String() string {
+	u := "nil"
+	if req.UserId != nil {
+		u = *req.UserId
+	}
+	a := "nil"
+	if req.AccessToken != nil {
+		a = *req.AccessToken
+	}
+	r := "nil"
+	if req.Resolution != nil {
+		r = *req.Resolution
+	}
+	l := "nil"
+	if req.LastActionTime != nil {
+		l = fmt.Sprintf("%v", *req.LastActionTime)
+	}
+	li := "nil"
+	if req.Limit != nil {
+		li = fmt.Sprintf("%d", *req.Limit)
+	}
+	f := "nil"
+	if req.Filter != nil {
+		f = fmt.Sprintf("[%v]", *req.Filter)
+	}
+	return fmt.Sprintf("userId [%s], accessToken [%s], resolution [%s], lastActionTime [%s], limit [%s], filter [%s]",
+		u, a, r, l, li, f)
+}
+
 type Filter struct {
 	MinAge      *int `json:"minAge"`
 	MaxAge      *int `json:"maxAge"`
 	MaxDistance *int `json:"maxDistance"`
+}
+
+func (filter Filter) String() string {
+	min := "nil"
+	if filter.MinAge != nil {
+		min = fmt.Sprintf("%d", *filter.MinAge)
+	}
+	max := "nil"
+	if filter.MaxAge != nil {
+		max = fmt.Sprintf("%d", *filter.MaxAge)
+	}
+	maxD := "nil"
+	if filter.MaxDistance != nil {
+		maxD = fmt.Sprintf("%d", *filter.MaxDistance)
+	}
+	return fmt.Sprintf("minAge [%s], maxAge [%s], maxDistance [%s]", min, max, maxD)
 }
 
 type GetLCRequest struct {
@@ -100,6 +145,39 @@ type GetLCRequest struct {
 
 	//inner fields (set on server side)
 	UserId *string `json:"userId"`
+}
+
+func (req GetLCRequest) String() string {
+	u := "nil"
+	if req.UserId != nil {
+		u = *req.UserId
+	}
+	a := "nil"
+	if req.AccessToken != nil {
+		a = *req.AccessToken
+	}
+	r := "nil"
+	if req.Resolution != nil {
+		r = *req.Resolution
+	}
+	l := "nil"
+	if req.LastActionTime != nil {
+		l = fmt.Sprintf("%v", *req.LastActionTime)
+	}
+	li := "nil"
+	if req.Limit != nil {
+		li = fmt.Sprintf("%d", *req.Limit)
+	}
+	s := "nil"
+	if req.Source != nil {
+		s = fmt.Sprintf("%s", *req.Source)
+	}
+	f := "nil"
+	if req.Filter != nil {
+		f = fmt.Sprintf("[%v]", *req.Filter)
+	}
+	return fmt.Sprintf("userId [%s], accessToken [%s], resolution [%s], lastActionTime [%s], limit [%s], source [%s], filter [%s]",
+		u, a, r, l, li, s, f)
 }
 
 type InternalGetLCResp struct {
@@ -169,6 +247,26 @@ type InternalProfiles struct {
 	WhereFrom      string          `json:"whereFrom"`
 	Unseen         bool            `json:"unseen"`
 	StatusText     string          `json:"statusText"`
+
+	//These properties needs for debug mode
+	TotalScores          int `json:"totalScores"`
+	TotalChatCount       int `json:"totalChatCount"`
+	TotalChatCountScores int `json:"totalChatCountScores"`
+
+	TotalMatchesCount       int `json:"totalMatchesCount"`
+	TotalMatchesCountScores int `json:"totalMatchesCountScores"`
+
+	PhotosCount       int `json:"photosCount"`
+	PhotosCountScores int `json:"photosCountScores"`
+
+	IncomeScores   int `json:"incomeScores"`
+	ChildrenScores int `json:"childrenScores"`
+	EduScores      int `json:"eduScores"`
+	CityScores     int `json:"cityScores"`
+	JobTitleScore  int `json:"jobTitleScore"`
+	CompanyScores  int `json:"companyScores"`
+	StatusScores   int `json:"statusScores"`
+	NameScores     int `json:"nameScores"`
 }
 
 func (resp InternalProfiles) String() string {
