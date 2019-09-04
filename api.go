@@ -247,6 +247,7 @@ type InternalProfiles struct {
 	WhereFrom      string          `json:"whereFrom"`
 	Unseen         bool            `json:"unseen"`
 	StatusText     string          `json:"statusText"`
+	TotalLikes     int64           `json:"totalLikes"`
 
 	//These properties needs for debug mode
 	TotalScores          int `json:"totalScores"`
@@ -334,6 +335,7 @@ type Profile struct {
 	WhereLive                   string    `json:"whereLive"`
 	WhereFrom                   string    `json:"whereFrom"`
 	StatusText                  string    `json:"statusText"`
+	TotalLikes                  int64     `json:"totalLikes"`
 }
 
 type Photo struct {
