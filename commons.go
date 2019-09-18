@@ -153,13 +153,14 @@ const (
 	Twilio = "Twilio"
 	Nexmo  = "Nexmo"
 
-	LikeActionType     = "LIKE"
-	ViewActionType     = "VIEW"
-	BlockActionType    = "BLOCK"
-	UnlikeActionType   = "UNLIKE"
-	MessageActionType  = "MESSAGE"
-	ViewChatActionType = "VIEW_CHAT"
-	LocationActionType = "LOCATION"
+	LikeActionType        = "LIKE"
+	ViewActionType        = "VIEW"
+	BlockActionType       = "BLOCK"
+	UnlikeActionType      = "UNLIKE"
+	MessageActionType     = "MESSAGE"
+	ViewChatActionType    = "VIEW_CHAT"
+	LocationActionType    = "LOCATION"
+	ReadMessageActionType = "READ_MESSAGE"
 
 	UserActiveStatus = "ACTIVE"
 	UserHiddenStatus = "HIDDEN"
@@ -269,5 +270,6 @@ func init() {
 	ActionNames[MessageActionType] = true
 	ActionNames[ViewChatActionType] = true
 	ActionNames[LocationActionType] = true
+	ActionNames[ReadMessageActionType] = true
 
 }

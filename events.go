@@ -744,6 +744,32 @@ func NewUserChangeLocationEvent(userId, sourceIp string, lat, lon float64, updat
 	}
 }
 
+type UserReadMessageEvent struct {
+	UserId            string `json:"userId"`
+	SourceIp          string `json:"sourceIp"`
+	OppositeUserId    string `json:"oppositeUserId"`
+	MessageId         string `json:"msgId"`
+	ReadMessageTimeAt int64  `json:"readMessageTimeAt"`
+	UnixTime          int64  `json:"unixTime"`
+	EventType         string `json:"eventType"`
+}
+
+func (event UserReadMessageEvent) String() string {
+	return fmt.Sprintf("%#v", event)
+}
+
+func NewUserReadMessageEvent(userId, sourceIp, oppositeUserId, messageId string, readMessageTimeAt int64) *UserReadMessageEvent {
+	return &UserReadMessageEvent{
+		UserId:            userId,
+		SourceIp:          sourceIp,
+		OppositeUserId:    oppositeUserId,
+		MessageId:         messageId,
+		ReadMessageTimeAt: readMessageTimeAt,
+		UnixTime:          UnixTimeInMillis(),
+		EventType:         "ACTION_READ_MESSAGE",
+	}
+}
+
 //feeds service
 
 type ProfileWasReturnToNewFacesEvent struct {

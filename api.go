@@ -379,6 +379,7 @@ func (resp InternalGetMessagesResp) String() string {
 }
 
 type Message struct {
+	HaveBeenRead    bool   `json:"haveBeenRead"`
 	WasYouSender    bool   `json:"wasYouSender"`
 	Text            string `json:"text"`
 	MessageId       string `json:"msgId"`
