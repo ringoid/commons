@@ -93,6 +93,7 @@ const (
 	PushNewLikeColumnName         = "push_new_like"
 	PushNewMatchColumnName        = "push_new_match"
 	PushNewMessageColumnName      = "push_new_message"
+	PushVibrationColumnName       = "push_vibration"
 	TimeZoneColumnName            = "time_zone"
 	SafeDistanceInMeterColumnName = "safe_distance_in_meter"
 	PushMessagesColumnName        = "push_messages"

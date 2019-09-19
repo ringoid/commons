@@ -146,6 +146,8 @@ type UserSettingsUpdatedEvent struct {
 	WasPushNewLikeChanged    bool   `json:"wasPushChanged"`
 	WasPushNewMatchChanged   bool   `json:"wasPushNewLikeChanged"`
 	WasPushNewMessageChanged bool   `json:"wasPushNewMatchChanged"`
+	PushVibration            bool   `json:"pushVibration"`
+	WasPushVibrationChanged  bool   `json:"wasPushVibrationChanged"`
 	TimeZone                 int    `json:"timeZone"`
 	WasTimeZoneChanged       bool   `json:"wasTimeZoneChanged"`
 	UnixTime                 int64  `json:"unixTime"`
@@ -157,7 +159,7 @@ func (event UserSettingsUpdatedEvent) String() string {
 }
 
 func NewUserSettingsUpdatedEvent(userId, sourceIp, locale string, wasLocaleChanged, push, pushNewLike, pushNewMatch, pushNewMessage,
-wasPushChanged, wasPushNewLike, wasPushNewMatch, wasPushNewMessage bool, timeZone int, wasTimeZoneChanged bool) *UserSettingsUpdatedEvent {
+wasPushChanged, wasPushNewLike, wasPushNewMatch, wasPushNewMessage, pushVibration, wasPushVibrationChanged bool, timeZone int, wasTimeZoneChanged bool) *UserSettingsUpdatedEvent {
 	return &UserSettingsUpdatedEvent{
 		UserId:           userId,
 		SourceIp:         sourceIp,
@@ -173,6 +175,9 @@ wasPushChanged, wasPushNewLike, wasPushNewMatch, wasPushNewMessage bool, timeZon
 		WasPushNewLikeChanged:    wasPushNewLike,
 		WasPushNewMatchChanged:   wasPushNewMatch,
 		WasPushNewMessageChanged: wasPushNewMessage,
+
+		PushVibration:           pushVibration,
+		WasPushVibrationChanged: wasPushVibrationChanged,
 
 		TimeZone:           timeZone,
 		WasTimeZoneChanged: wasTimeZoneChanged,
