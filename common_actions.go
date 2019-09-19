@@ -567,3 +567,11 @@ func GeneratePartitionKey(arr ... string) string {
 func UnixTimeInMillis() int64 {
 	return time.Now().Round(time.Millisecond).UnixNano() / 1000000
 }
+
+func ReplacePhotoUriUsingCloudfrontIfNeeded(originS3Path, cloudFrontDomainName, env string, useCloudFront bool) string {
+	if useCloudFront {
+		oldStr := "s3-eu-west-1.amazonaws.com/" + env + "-ringoid-public-photo"
+		return strings.Replace(originS3Path, oldStr, cloudFrontDomainName, 1)
+	}
+	return originS3Path
+}
