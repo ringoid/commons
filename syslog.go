@@ -10,15 +10,16 @@ import (
 )
 
 type Logger struct {
-	debug *log.Logger
-	info  *log.Logger
-	warn  *log.Logger
-	error *log.Logger
-	fatal *log.Logger
-	aws   *log.Logger
+	isDebugEnabled bool
+	debug          *log.Logger
+	info           *log.Logger
+	warn           *log.Logger
+	error          *log.Logger
+	fatal          *log.Logger
+	aws            *log.Logger
 }
 
-func New(address, tag string) (*Logger, error) {
+func New(address, tag string, isDebugEnabled bool) (*Logger, error) {
 	var multiWriter io.Writer = os.Stdout
 	if address != "" {
 		sysLogWriter, err := syslog.Dial("udp", address, syslog.LOG_EMERG|syslog.LOG_KERN, tag)
@@ -28,6 +29,8 @@ func New(address, tag string) (*Logger, error) {
 		multiWriter = io.MultiWriter(sysLogWriter, os.Stdout)
 	}
 	l := Logger{}
+	l.isDebugEnabled = isDebugEnabled
+
 	l.debug = log.New(os.Stdout, "DEBUG ", log.Ldate|log.Lmicroseconds|log.LUTC)
 	//l.debug = log.New(multiWriter, "DEBUG ", log.Ldate|log.Lmicroseconds|log.LUTC)
 
@@ -45,6 +48,9 @@ func New(address, tag string) (*Logger, error) {
 }
 
 func (l *Logger) Debugf(ctx *lambdacontext.LambdaContext, s string, args ...interface{}) {
+	if !l.isDebugEnabled {
+		return
+	}
 	if ctx != nil {
 		s = fmt.Sprintf("[%s] %s", ctx.AwsRequestID, s)
 	}
@@ -52,6 +58,9 @@ func (l *Logger) Debugf(ctx *lambdacontext.LambdaContext, s string, args ...inte
 }
 
 func (l *Logger) Debugln(ctx *lambdacontext.LambdaContext, s string) {
+	if !l.isDebugEnabled {
+		return
+	}
 	if ctx != nil {
 		s = fmt.Sprintf("[%s] %s", ctx.AwsRequestID, s)
 	}
