@@ -500,15 +500,19 @@ func (event HidePhotoInternalEvent) String() string {
 }
 
 type NewUserNotificationInternalEvent struct {
-	EventType         string `json:"eventType"`
-	UserId            string `json:"userId"`
-	Sex               string `json:"sex"`
-	Locale            string `json:"locale"`
-	LastOnlineTime    int64  `json:"lastOnlineTime"`
-	NewLikeEnabled    bool   `json:"newLikeEnabled"`
-	NewMatchEnabled   bool   `json:"newMatchEnabled"`
-	NewMessageEnabled bool   `json:"newMessageEnabled"`
-	OppositeUserId    string `json:"oppositeUserId"`
+	EventType         string   `json:"eventType"`
+	UserId            string   `json:"userId"`
+	Sex               string   `json:"sex"`
+	Locale            string   `json:"locale"`
+	LastOnlineTime    int64    `json:"lastOnlineTime"`
+	NewLikeEnabled    bool     `json:"newLikeEnabled"`
+	NewMatchEnabled   bool     `json:"newMatchEnabled"`
+	NewMessageEnabled bool     `json:"newMessageEnabled"`
+	OppositeUserId    string   `json:"oppositeUserId"`
+	Name              string   `json:"name"`
+	Thumbnails        []string `json:"thumbnails"`
+	Ts                int64    `json:"ts"`
+	Text              string   `json:"text"`
 }
 
 func (event NewUserNotificationInternalEvent) String() string {

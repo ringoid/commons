@@ -435,19 +435,23 @@ const (
 )
 
 type PushObject struct {
-	UserId            string `json:"userId"`
-	Sex               string `json:"sex"`
-	Locale            string `json:"locale"`
-	LastOnlineTime    int64  `json:"lastOnlineTime"`
-	NewMessageCounter int64  `json:"newMessageCount"`
-	NewMatchCounter   int64  `json:"newMatchCount"`
-	NewLikeCounter    int64  `json:"newLikeCount"`
-	NewProfileCounter int64  `json:"newProfiles"`
-	PushType          string `json:"pushType"`
-	NewLikeEnabled    bool   `json:"newLikeEnabled"`
-	NewMatchEnabled   bool   `json:"newMatchEnabled"`
-	NewMessageEnabled bool   `json:"newMessageEnabled"`
-	OppositeUserId    string `json:"oppositeUserId"`
+	UserId            string   `json:"userId"`
+	Sex               string   `json:"sex"`
+	Locale            string   `json:"locale"`
+	LastOnlineTime    int64    `json:"lastOnlineTime"`
+	NewMessageCounter int64    `json:"newMessageCount"`
+	NewMatchCounter   int64    `json:"newMatchCount"`
+	NewLikeCounter    int64    `json:"newLikeCount"`
+	NewProfileCounter int64    `json:"newProfiles"`
+	PushType          string   `json:"pushType"`
+	NewLikeEnabled    bool     `json:"newLikeEnabled"`
+	NewMatchEnabled   bool     `json:"newMatchEnabled"`
+	NewMessageEnabled bool     `json:"newMessageEnabled"`
+	OppositeUserId    string   `json:"oppositeUserId"`
+	Name              string   `json:"name"`
+	Thumbnails        []string `json:"thumbnails"`
+	Ts                int64    `json:"ts"`
+	Text              string   `json:"text"`
 }
 
 func (resp PushObject) String() string {
